@@ -4,6 +4,15 @@
   }
 }
 
+#title {
+  margin-bottom: 15px;
+  box-shadow: 5px 5px 7px #1b1b1e;
+}
+
+#body {
+  box-shadow: 5px 5px 5px #1b1b1e;
+}
+
 #body p{
   color: black;
   padding: 10px;

@@ -1,13 +1,19 @@
 'use client';
 
+import { ObjectDto } from '@/dtos/object.dto';
+import Link from 'next/link';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-export const CarouselComponent = () => {
+export const CarouselComponent = ({
+  carouselContent,
+}: {
+  carouselContent: ObjectDto[];
+}) => {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1280 },
-      items: 1,
+      items: 2,
     },
     desktop: {
       breakpoint: { max: 1280, min: 768 },
@@ -33,12 +39,22 @@ export const CarouselComponent = () => {
         responsive={responsive}
         centerMode={true}
       >
-        <div className="w-40 h-24 bg-primary-3 rounded-xl sm:w-48 sm:h-28">Item 1</div>
-        <div className="w-40 h-24 bg-primary-3 rounded-xl sm:w-48 sm:h-28">Item 2</div>
-        <div className="w-40 h-24 bg-primary-3 rounded-xl sm:w-48 sm:h-28">Item 3</div>
-        <div className="w-40 h-24 bg-primary-3 rounded-xl sm:w-48 sm:h-28">Item 4</div>
-        <div className="w-40 h-24 bg-primary-3 rounded-xl sm:w-48 sm:h-28">Item 5</div>
-        <div className="w-40 h-24 bg-primary-3 rounded-xl sm:w-48 sm:h-28">Item 6</div>
+        {carouselContent.map((obj) => {
+          return (
+            <Link
+              href={{
+                pathname: "/object",
+                query: { idObject: obj.idObject }
+              }}
+              key={obj.idObject}
+              className="w-40 h-24 bg-primary-3 rounded-xl sm:w-48 sm:h-28 md:w-52 md:h-32 block"
+              style={{
+                backgroundImage: `url(${obj.objectPicture.path})`,
+                backgroundSize: 'contain',
+              }}
+            ></Link>
+          );
+        })}
       </Carousel>
     </div>
   );

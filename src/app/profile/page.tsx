@@ -1,4 +1,4 @@
-import { Profile } from '@/templates/profile';
+import { Profile } from '@/templates/Profile';
 
 export default function ProfilePage () {
   return <Profile />

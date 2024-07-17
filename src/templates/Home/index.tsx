@@ -1,7 +1,6 @@
-import { Navbar } from '@/components/global-components';
 import { Categories } from '@/components/home-components/Categories';
 import { Header } from '@/components/home-components/Header';
-import { Sidebar } from 'rsuite';
+import { Sidebar } from '@/components/global-components/Sidebar';
 
 export const Home = () => {
   return (
@@ -14,10 +13,12 @@ export const Home = () => {
         alignItems: 'center',
       }}
     >
-      <Navbar />
       <Header />
-      <Categories />
 
+      <div className="w-full flex justify-center md:justify-around">
+        <Categories />
+        <Sidebar />
+      </div>
     </main>
   );
 };
