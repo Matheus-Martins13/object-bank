@@ -1,0 +1,26 @@
+#home-top-video {
+  min-height: 100px;
+  max-height: 250px;
+  overflow: hidden;
+}
+
+#text-header {
+  min-height: 90px;
+}
+
+#home-top-image {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  #home-top-video {
+    display: none;
+  }
+
+  #home-top-image {
+    display: block;
+    min-width: 100%;
+    min-height: 200px;
+    background-image: url('https://slp-statics.astockcdn.net/static_assets/staging/23spring/br/homepage/hero/hero-cover.jpg?width=1555&format=webp');
+  }
+}

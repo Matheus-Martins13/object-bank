@@ -1,5 +1,7 @@
 import { Navbar } from '@/components/global-components';
 import { Categories } from '@/components/home-components/Categories';
+import { Header } from '@/components/home-components/Header';
+import { Sidebar } from 'rsuite';
 
 export const Home = () => {
   return (
@@ -13,7 +15,9 @@ export const Home = () => {
       }}
     >
       <Navbar />
+      <Header />
       <Categories />
+
     </main>
   );
 };

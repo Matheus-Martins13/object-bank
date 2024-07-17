@@ -1,4 +1,5 @@
 import { Carousel } from '@/components/home-components/Carousel';
+import { Sidebar } from '@/components/global-components/Sidebar';
 
 export const Categories = () => {
   const categorias = [
@@ -16,7 +17,8 @@ export const Categories = () => {
     },
   ];
   return (
-      <div className="w-11/12">
+    <div className="w-full flex justify-center md:justify-around">
+      <div className='w-11/12 sm:w-3/5 lg:w-2/4 lg:self-start lg:ms-10'>
         {categorias.map((cat) => {
           return (
             <div key={cat.idCategoria} className="my-6">
@@ -26,5 +28,8 @@ export const Categories = () => {
           );
         })}
       </div>
+
+      <Sidebar />
+    </div>
   );
 };
