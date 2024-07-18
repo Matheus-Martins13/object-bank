@@ -1,5 +1,8 @@
-import { Carousel } from '@/components/home-components/Carousel';
+"use client";
+
+import { useEffect } from 'react';
 import { Category } from './components';
+import { findUserByEmail } from '@/config/axios';
 
 export const Categories = () => {
   const categorias = [
@@ -203,6 +206,14 @@ export const Categories = () => {
       ],
     },
   ];
+
+  const findUser = async () => {
+    const user = await findUserByEmail('');
+  };
+
+  useEffect(() => {
+
+  }, []);
 
   return (
     <div className="w-11/12 sm:w-3/5 lg:w-2/4 lg:self-start lg:ms-10">
