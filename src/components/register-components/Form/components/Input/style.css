@@ -1,0 +1,8 @@
+input {
+  background-color: black;
+  color: white;
+}
+
+input::placeholder {
+  color: white;
+}

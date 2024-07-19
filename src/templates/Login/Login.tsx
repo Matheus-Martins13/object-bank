@@ -1,9 +1,15 @@
 'use client';
 
 import { login } from '@/config/axios';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useContext } from 'react';
+import { toast } from 'react-hot-toast';
+
+import './style.css';
+import { AuthContext } from '@/context/authContext';
 
 export const Login = () => {
+  const { signIn } = useContext(AuthContext);
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -16,9 +22,34 @@ export const Login = () => {
   };
 
   const handleSend = async () => {
-    const payload = await login(email, password);
-    console.log(payload);
+    const validated = validate();
+    if (validated.error) return toast.error(validated.error);
+    try {
+      const payload = await signIn(email, password);
+      if (!payload) {
+        return toast.error("E-mail ou senha incorretos");
+      }
+    } catch (err) {
+      console.log(`ERROR: ${err}`);
+    }
   };
+
+  function validate() {
+    function validateEmail(email: string) {
+      const re: RegExp = /\S+@\S+\.\S+/;
+      return re.test(email);
+    }
+
+    if (!email || !password) {
+      return { error: 'E-mail e senha são campos obrigatórios.' };
+    }
+
+    if (!validateEmail(email)) {
+      return { error: 'E-mail inválido.' };
+    }
+
+    return { success: 'Logado com sucesso' };
+  }
 
   return (
     <div
@@ -36,18 +67,19 @@ export const Login = () => {
         <input
           id="email"
           type="text"
-          className="bg-black opacity-20 block my-2 text-black p-2"
+          className="bg-black block my-2 p-2"
           placeholder="E-mail"
           onChange={handleMail}
           value={email}
         />
-        <label htmlFor="email" className="text-black block mt-2 self-start">
+        <label htmlFor="password" className="text-black block mt-2 self-start">
           Senha:
         </label>
 
         <input
+          id="password"
           type="password"
-          className="bg-black opacity-20 block my-2 text-black p-2"
+          className="bg-black block my-2 text-black p-2"
           placeholder="Senha"
           onChange={handlePassword}
           value={password}

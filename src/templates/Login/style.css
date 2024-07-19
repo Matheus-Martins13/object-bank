@@ -1,0 +1,8 @@
+#email::placeholder,
+#password::placeholder {
+  color: white;
+}
+
+#password {
+  color: white;
+}
