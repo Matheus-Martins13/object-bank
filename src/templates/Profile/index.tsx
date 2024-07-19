@@ -1,3 +1,1 @@
-export const Profile = () => {
-  return <></>;
-};
+export { Profile } from './Profile';

@@ -17,13 +17,12 @@ export const Object = ({ idObject }: { idObject: any }) => {
    * Ao gerar o QR Code, um parâmetro será passado para ele, que indicará que este objeto é somente de visualização.
    * Esse parâmetro deverá ser extraído no componente pai deste.
    * Com o parâmetro extraído, haverá uma série de verificações.
-   * Assim que o componente for montado, caso haja este parâmetro, o componente poderá ser somente visualizado 
+   * Assim que o componente for montado, caso haja este parâmetro, o componente poderá ser somente visualizado
    * com as informações pertinentes a ele.
    * Para que a requisição seja efetuada com sucesso, a API deve estar configurada para ignorar o JWT vazio
    * na hora da validação, ao solicitar o objeto com id específico, caso um parâmetro de verificação
    * (gerado no QR Code) seja passado corretamente.
-  */
-
+   */
 
   if (!idObject) router.push('/');
 
@@ -57,35 +56,30 @@ export const Object = ({ idObject }: { idObject: any }) => {
         className="min-w-full min-h-screen bg-primary-2 md:flex md:flex-col md:items-center"
       >
         <div id="container" className="w-3/4 mt-8 ms-8">
-        
-        <Header object={object}/>
+          <Header object={object} />
 
           <div id="object-picture" className="">
             <figure>
               <img src={object.objectPicture.path} alt="" className="w-full" />
               <figcaption>
-                <span className=''>Categoria:</span> {object.category} | Subcategoria:{' '}
-                {object.subcategory} | Tags:{' '}
+                <span className="">Categoria:</span> {object.category} |
+                Subcategoria: {object.subcategory} | Tags:{' '}
                 {object.tags.map((tag) => (
-                  <>{tag.name}</>
+                  <div key={`${tag}${Math.random()}`}>{tag.name}</div>
                 ))}
               </figcaption>
             </figure>
           </div>
 
-          <div id="object-description" className='mt-8'>
+          <div id="object-description" className="mt-8">
             <p>{object.description}</p>
           </div>
 
           <Comments />
-
         </div>
-
       </div>
     );
   }
 
-  return (
-    <Loading />
-  );
+  return <Loading />;
 };
