@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { Input } from './components';
+import { Input } from './components/Input';
 
 export const Form = ({
   handleName,
@@ -29,7 +29,6 @@ export const Form = ({
   numero,
   complemento,
   phone,
-  profilePicture,
   email,
   password,
 }: {
@@ -69,7 +68,7 @@ export const Form = ({
       id="register"
       className="bg-primary-1 min-h-screen flex flex-col items-center justify-center"
     >
-      <form onSubmit={handleSend}>
+      <form>
         <div
           id="register-container"
           className="bg-white p-10 flex flex-col items-center justify-center"
@@ -83,6 +82,7 @@ export const Form = ({
             value={name}
             placeholder="Nome completo"
             onChange={handleName}
+            mask=""
           />
 
           <Input
@@ -92,6 +92,7 @@ export const Form = ({
             value={cpf}
             placeholder="CPF"
             onChange={handleCpf}
+            mask="999.999.999-99"
           />
 
           <Input
@@ -101,6 +102,7 @@ export const Form = ({
             value={birthday}
             placeholder="Sua senha"
             onChange={handleBirthday}
+            mask=""
           />
 
           <Input
@@ -110,6 +112,7 @@ export const Form = ({
             value={cep}
             placeholder="CEP"
             onChange={handleCep}
+            mask="99999-999"
           />
 
           <Input
@@ -119,6 +122,7 @@ export const Form = ({
             value={estado}
             placeholder="Estado"
             onChange={handleEstado}
+            mask=""
           />
 
           <Input
@@ -128,6 +132,7 @@ export const Form = ({
             value={cidade}
             placeholder="Cidade"
             onChange={handleCidade}
+            mask=""
           />
 
           <Input
@@ -137,6 +142,7 @@ export const Form = ({
             value={bairro}
             placeholder="Bairro"
             onChange={handleBairro}
+            mask=""
           />
 
           <Input
@@ -146,6 +152,7 @@ export const Form = ({
             value={logradouro}
             placeholder="Logradouro"
             onChange={handleLogradouro}
+            mask=""
           />
 
           <Input
@@ -155,6 +162,7 @@ export const Form = ({
             value={numero}
             placeholder="Sua senha"
             onChange={handleNumero}
+            mask=""
           />
 
           <Input
@@ -164,6 +172,7 @@ export const Form = ({
             value={complemento}
             placeholder="Complemento"
             onChange={handleComplemento}
+            mask=""
           />
 
           <Input
@@ -173,6 +182,7 @@ export const Form = ({
             value={phone}
             placeholder="Telefone celular"
             onChange={handlePhone}
+            mask="(99)9 9999-9999"
           />
 
           <Input
@@ -182,6 +192,7 @@ export const Form = ({
             value={email}
             placeholder="Ex.: email@email.com"
             onChange={handleMail}
+            mask=""
           />
 
           <Input
@@ -191,6 +202,7 @@ export const Form = ({
             value={password}
             placeholder="Sua senha"
             onChange={handlePassword}
+            mask=""
           />
 
           <label htmlFor="profile-type" className="text-black self-start mt-6">
@@ -199,27 +211,29 @@ export const Form = ({
           <select
             id="profile-type"
             className="w-full bg-black p-2"
-            defaultValue="tipo-perfil"
+            defaultValue={'DEFAULT'}
             onChange={handleProfileType}
           >
-            <option value="tipo-perfil" disabled selected>
+            <option value="DEFAULT" disabled>
               Selecione o tipo de perfil
             </option>
-            <option value="aluno">Aluno</option>
-            <option value="professor">Administrador</option>
+            <option value="ALUNO">Aluno</option>
+            <option value="ADMINISTRADOR">Administrador</option>
           </select>
 
           <Input
             id="profile-picture"
             label="Foto de perfil"
             type="file"
-            value={profilePicture}
             onChange={handleProfilePicture}
+            mask=""
+            accept='image/png, image/jpg'
           />
 
           <button
             className="bg-primary-1 rounded-md p-2 mt-8 self-end"
             type="submit"
+            onClick={handleSend}
           >
             Enviar
           </button>

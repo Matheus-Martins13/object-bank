@@ -1,6 +1,5 @@
 'use client';
 
-import { login } from '@/config/axios';
 import { ChangeEvent, useState, useContext } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -26,8 +25,8 @@ export const Login = () => {
     if (validated.error) return toast.error(validated.error);
     try {
       const payload = await signIn(email, password);
-      if (!payload) {
-        return toast.error("E-mail ou senha incorretos");
+      if (payload.error) {
+        return toast.error(payload.message);
       }
     } catch (err) {
       console.log(`ERROR: ${err}`);

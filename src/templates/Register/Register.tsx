@@ -3,7 +3,8 @@
 import { Form } from '@/components/register-components';
 import { ChangeEvent, useState } from 'react';
 import { validate } from './utils/validate.util';
-import { formatEstado } from './utils/formatEstado';
+import { formatEstado } from './utils/format-estado';
+import { register } from '@/config/axios';
 import toast from 'react-hot-toast';
 
 export const Register = () => {
@@ -28,7 +29,9 @@ export const Register = () => {
   };
 
   const handleCpf = (event: ChangeEvent<HTMLInputElement>) => {
-    setCpf(event.target.value);
+    setCpf(
+      event.target.value.replace('.', '').replace('.', '').replace('-', ''),
+    );
   };
 
   const handleBirthday = (event: ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +39,7 @@ export const Register = () => {
   };
 
   const handleCep = async (event: ChangeEvent<HTMLInputElement>) => {
-    const cepCap = event.target.value;
+    const cepCap = event.target.value.replace('-', '');
 
     if (cepCap.length == 8) {
       fetch(`https://viacep.com.br/ws/${cepCap}/json/`)
@@ -48,7 +51,7 @@ export const Register = () => {
           setBairro(data.bairro);
           setLogradouro(data.logradouro);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => null);
     }
     setCep(event.target.value);
   };
@@ -78,7 +81,9 @@ export const Register = () => {
   };
 
   const handlePhone = (event: ChangeEvent<HTMLInputElement>) => {
-    setPhone(event.target.value);
+    setPhone(
+      event.target.value.replace('(', '').replace(')', '').replace('-', ''),
+    );
   };
 
   const handleMail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -99,14 +104,7 @@ export const Register = () => {
 
   const handleSend = async (event: any) => {
     event.preventDefault();
-
-    const validated = validate(email, password);
-
-    if (validated.error) return toast.error(validated.error);
-
     try {
-      const formData = new FormData();
-
       const data = {
         name,
         cpf,
@@ -124,13 +122,61 @@ export const Register = () => {
         profileType,
       };
 
+      const validated = validate(data);
+
+      if (validated.error) return toast.error(validated.error);
+
+      const formData = new FormData();
+
       if (profilePicture) {
-        console.log(profilePicture);
+        if (!profilePicture.item(0)!.type.startsWith('image/')) {
+          return toast.error('Tipo de arquivo não suportado');
+        }
+        formData.append('photo', profilePicture.item(0) as Blob);
       }
 
-      console.log(data);
+      formData.append('name', data.name);
+      formData.append('cpf', data.cpf);
+      formData.append('birthday', data.birthday);
+      formData.append('cep', data.cep);
+      formData.append('estado', data.estado);
+      formData.append('cidade', data.cidade);
+      formData.append('bairro', data.bairro);
+      formData.append('logradouro', data.logradouro);
+      formData.append('numero', data.numero);
+      formData.append('complemento', data.complemento);
+      formData.append('phone', data.phone);
+      formData.append('email', data.email);
+      formData.append('password', data.password);
+      formData.append('profileType', data.profileType);
+
+      // console.log(data);
+
+      const response = await register(formData);
+      console.log(response);
+
+      if (response.error) {
+        return toast.error(response.message);
+      }
+
+      toast.success('Usuário cadastrado com sucesso');
+      setName('');
+      setCpf('');
+      setBirthday('');
+      setCep('');
+      setEstado('');
+      setCidade('');
+      setBairro('');
+      setLogradouro('');
+      setNumero('');
+      setComplemento('');
+      setPhone('');
+      setEmail('');
+      setPassword('');
+      setProfileType('');
+      setProfilePicture(null);
     } catch (err) {
-      console.log(`ERROR: ${err}`);
+      toast.error(`ERROR: ${err}`);
     }
   };
 

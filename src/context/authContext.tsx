@@ -25,11 +25,13 @@ export const AuthProvider = ({
 
   const signIn = async (email: string, password: string) => {
     const payloadFound = await login(email, password);
+
+    console.log(payloadFound);
     if (!payloadFound) return false;
 
     if (payloadFound.token) {
       setPayload(payload);
-      setCookie('payload', payload);
+      setCookie('token', payloadFound.token);
       router.push('/');
     }
 
