@@ -1,5 +1,4 @@
 interface PayloadDto {
-    token: string;
-    expiresIn: string;
-  }
-  
+  sub: string;
+  type: string;
+}
