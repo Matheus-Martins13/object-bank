@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { Category } from './components';
-import { findUserByEmail } from '@/config/axios';
+import { findUserByEmail } from '@/services/axios';
 
 export const Categories = () => {
   const categorias = [

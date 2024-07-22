@@ -38,6 +38,10 @@ export const Object = ({ idObject }: { idObject: any }) => {
           name: 'nome1',
           path: 'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
         },
+        user: {
+          idUser: '',
+          name: '',
+        },
         category: 'Categoria 1',
         subcategory: 'Subcategpria1',
         tags: [{ name: 'tag1' }],

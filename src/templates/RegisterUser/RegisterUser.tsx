@@ -1,13 +1,13 @@
 'use client';
 
-import { Form } from '@/components/register-components';
+import { Form } from '@/components/register-user-components';
 import { ChangeEvent, useState } from 'react';
 import { validate } from './utils/validate.util';
 import { formatEstado } from './utils/format-estado';
-import { register } from '@/config/axios';
+import { register } from '@/services/axios';
 import toast from 'react-hot-toast';
 
-export const Register = () => {
+export const RegisterUser = () => {
   const [name, setName] = useState<string>('');
   const [cpf, setCpf] = useState<string>('');
   const [birthday, setBirthday] = useState<string>('');
@@ -153,7 +153,6 @@ export const Register = () => {
       // console.log(data);
 
       const response = await register(formData);
-      console.log(response);
 
       if (response.error) {
         return toast.error(response.message);

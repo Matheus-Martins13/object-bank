@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { login } from '@/config/axios';
+import { login } from '@/services/axios';
 import { setCookie } from '@/actions/set-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { getCookie } from '@/actions/get-cookie';
@@ -31,7 +31,6 @@ export const AuthProvider = ({
 
   const getPayload = async () => {
     const payloadFound = await getCookie('payload');
-    console.log('payload: ', payloadFound);
 
     if (payloadFound) {
       setPayload(JSON.parse(payloadFound.value));
@@ -60,9 +59,10 @@ export const AuthProvider = ({
     return payloadFound;
   };
 
-  const signOut = () => {
+  const signOut = async () => {
     setPayload(undefined);
-    deleteCookie('user');
+    await deleteCookie('payload');
+    await deleteCookie('token');
     router.push('/login');
   };
 

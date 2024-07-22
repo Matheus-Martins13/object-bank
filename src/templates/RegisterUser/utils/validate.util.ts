@@ -10,7 +10,6 @@ export function validate(data: any) {
     'Data de nascimento',
     'CEP',
     'Estado',
-    'Número',
     'Cidade',
     'Bairro',
     'Logradouro',
@@ -25,7 +24,6 @@ export function validate(data: any) {
     !data.birthday ||
     !data.cep ||
     !data.estado ||
-    !data.numero ||
     !data.cidade ||
     !data.bairro ||
     !data.logradouro ||

@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from '@/context/authContext';
 import { Navbar } from '@/components/global-components';
-import { FaCheck } from 'react-icons/fa6';
 
 import './globals.css';
 

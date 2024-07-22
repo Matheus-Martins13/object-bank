@@ -33,5 +33,12 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/login', '/profile', '/object/(.*)', '/register-user'],
+  matcher: [
+    '/',
+    '/login',
+    '/profile',
+    '/object/(.*)',
+    '/register-user',
+    '/register-category',
+  ],
 };

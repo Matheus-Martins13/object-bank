@@ -2,4 +2,5 @@ export { Home } from './Home';
 export { Login } from './Login';
 export { Object } from './Object';
 export { Profile } from './Profile';
-export { Register } from './Register';
+export { RegisterUser } from './RegisterUser';
+export { RegisterCategory } from './RegisterCategory';
