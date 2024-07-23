@@ -9,7 +9,7 @@ export const Header = () => {
           autoPlay={true}
           muted
           loop
-          src="https://slp-statics.astockcdn.net/static_assets/staging/23spring/br/homepage/hero/hero-cover.mp4"
+          src="http://localhost:3001/video/header-video.mp4"
         ></video>
       </div>
 

@@ -1,5 +1,5 @@
 import { RegisterUser } from '@/templates/RegisterUser';
 
-export default function RegisterUserScreen() {
+export default function RegisterUserPage() {
   return <RegisterUser />;
 }

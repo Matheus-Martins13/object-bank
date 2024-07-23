@@ -1,7 +1,7 @@
 import { ObjectDto } from "./object.dto";
 
 export interface CategoryDto {
-  idCategoria: string;
+  idCategory: string;
   name: string;
   objects: ObjectDto[];
 }

@@ -6,7 +6,7 @@ export const Home = () => {
   return (
     <main
       style={{
-        backgroundColor: '#00518a',
+        backgroundColor: 'white',
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',

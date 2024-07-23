@@ -1,5 +1,5 @@
 import { RegisterCategory } from '@/templates/RegisterCategory';
 
-export default function RegisterCategoryScreen(){
+export default function RegisterCategoryPage(){
   return <RegisterCategory />
 }

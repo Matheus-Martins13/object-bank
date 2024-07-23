@@ -35,15 +35,6 @@ export const register = async (data: FormData) => {
   }
 };
 
-export const findUserByEmail = async (email: string) => {
-  try {
-    const user = await api.get(`/users/${email}`);
-    return user;
-  } catch (err) {
-    return null;
-  }
-};
-
 export const registerCategory = async (name: string) => {
   try {
     const response = await api.post('category', { name });
@@ -84,5 +75,37 @@ export const registerSubcategory = async (subcategory: string, category: string)
         error: true,
         message: err.response.data.message[0],
       };
+  }
+};
+
+
+export const findAllSubcategoriesInCategory = async (idCategory: string) => {
+  try {
+    const response = await api.get(`subcategory/find-all/${idCategory}`);
+    const responseData = await response.data;
+    return responseData;
+  } catch (err: any) {
+    if (err.response.data) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    } else return err;
+  }
+};
+
+
+export const findAllTags = async () => {
+  try {
+    const response = await api.get('tag');
+    const responseData = await response.data;
+    return responseData;
+  } catch (err: any) {
+    if (err.response.data) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    } else return err;
   }
 };

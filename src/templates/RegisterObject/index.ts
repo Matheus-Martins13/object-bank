@@ -1,0 +1,1 @@
+export { RegisterObject } from './RegisterObject';
