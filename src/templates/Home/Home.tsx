@@ -11,6 +11,7 @@ export const Home = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        overflowX: 'hidden',
       }}
     >
       <Header />
