@@ -1,27 +1,32 @@
 'use client';
 
-import { ChangeEvent, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   findAllCategories,
   findAllSubcategoriesInCategory,
   findAllTags,
-  registerSubcategory,
+  registerTag,
 } from '@/services/axios';
 import { Multiselect } from '@/components/register-object-components/Multiselect';
-
 import { TagInterface } from '@/dtos/tag.dto';
 
 import toast from 'react-hot-toast';
 
 export const RegisterObject = () => {
   const [categories, setCategories] = useState([]);
-  const [tags, setTags] = useState<TagInterface[]>([]);
   const [subcategories, setSubcatecories] = useState([]);
 
   const [objectName, setObjectName] = useState('');
   const [objectDescription, setObjectDescription] = useState('');
   const [category, setCategory] = useState();
   const [subcategory, setSubcategory] = useState();
+
+  const [tagsDb, setTagsDb] = useState<
+    { value: string; label: string; idTag: string }[]
+  >([]);
+  const [tags, setTags] = useState<
+    { value: string; label: string; idTag?: string }[]
+  >([]);
   const [tag, setTag] = useState();
 
   const [thumb, setThumb] = useState();
@@ -33,24 +38,15 @@ export const RegisterObject = () => {
   };
 
   const loadTags = async () => {
-    // const tagsFound = await findAllTags();
-    const tagsFound = [
-      {
-        idTag: 'asdas',
-        name: 'string',
-        createdAt: '',
-        updatedAt: '',
-        object: '',
-      },
-      {
-        idTag: 'string',
-        name: 'cachorro',
-        createdAt: '',
-        updatedAt: '',
-        object: '',
-      },
-    ];
-    setTags(tagsFound);
+    const tagsFound = await findAllTags();
+
+    const options: any = [];
+
+    tagsFound.forEach((tag: any) => {
+      options.push({ value: tag.name, label: tag.name, idTag: tag.idTag });
+    });
+
+    setTagsDb(options);
   };
 
   const loadSubcategories = async (idCategory: string) => {
@@ -80,34 +76,78 @@ export const RegisterObject = () => {
     setSubcategory(event.target.value);
   };
 
-  const handleTag = (event: any) => {
-    setTag(event.target.value);
-  };
-
   const handleThumb = (event: any) => {
-    setThumb(event.target.file);
+    setThumb(event.target.files[0]);
   };
 
   const handleObjectFile = (event: any) => {
-    setObjectFile(event.target.file);
+    setObjectFile(event.target.files[0]);
+  };
+
+  const handleTags = (event: any) => {
+    setTags(event);
+  };
+
+  const handleTag = (event: any) => {
+    setTag(event);
+  };
+
+  const handleSendTag = async (event: any) => {
+    event.preventDefault();
+    try {
+      if (tag) {
+        const response = await registerTag(tag);
+        if (response.error) return toast.error(response.message);
+        const updatedTags = tags;
+        updatedTags.push({
+          value: response.name,
+          label: response.name,
+          idTag: response.idTag,
+        });
+        setTags(updatedTags);
+      }
+    } catch (err) {
+      console.log('ERROR: ' + err);
+    }
   };
 
   const handleSend = async (event: any) => {
     event.preventDefault();
-    if (!category) {
-      return toast.error('Você deve selecionar uma categoria para o objeto');
-    }
-    if (!subcategory) {
-      return toast.error('Você deve selecionar uma subcategoria para o objeto');
-    }
+
+    // if (!objectName) {
+    //   return toast.error('O nome do objeto é obrigatório');
+    // }
+    // if (!objectDescription) {
+    //   return toast.error('A descrição do objeto é obrigatória');
+    // }
+    // if (!category) {
+    //   return toast.error('A categoria do objeto deve ser selecionada');
+    // }
+    // if (!subcategory) {
+    //   return toast.error('A subcategoria do objeto deve ser selecionada');
+    // }
+    // if (!objectFile) {
+    //   return toast.error('Você deve enviar um arquivo para o objeto');
+    // }
+
+    const data = {
+      name: objectName,
+      description: objectDescription,
+      category,
+      subcategory,
+      tags,
+      thumb,
+      objectFile,
+    };
+
+    console.log(data);
 
     try {
-      const response = await registerSubcategory(subcategory, category);
-
-      if (response.error) return toast.error(response.message);
-      return toast.success(
-        `Subcategoria '${subcategory}' cadastrada com sucesso`,
-      );
+      // const response = await registerSubcategory(subcategory, category);
+      // if (response.error) return toast.error(response.message);
+      // return toast.success(
+      //   `Subcategoria '${subcategory}' cadastrada com sucesso`,
+      // );
     } catch (err) {
       console.log('ERROR:' + err);
     }
@@ -116,9 +156,9 @@ export const RegisterObject = () => {
   return (
     <div
       id="register-category"
-      className="min-h-screen flex items-center justify-center flex-col"
+      className="min-h-screen flex items-center justify-center flex-col w-full"
     >
-      <form onSubmit={handleSend}>
+      <form className="w-2/4" onSubmit={handleSend}>
         {/* --------------- */}
         <label htmlFor="object-name" className="text-black">
           Nome do objeto
@@ -206,15 +246,8 @@ export const RegisterObject = () => {
         {/* --------------- */}
 
         {/* --------------- */}
-        <label htmlFor="" className="text-black mt-6">
-          Tags:{' '}
-        </label>
-        <Multiselect tags={tags} />
-        {/* --------------- */}
-
-        {/* --------------- */}
         <label htmlFor="object-thumb" className="text-black">
-          Thumb:{' '}
+          Thumb:
         </label>
         <input
           type="file"
@@ -238,9 +271,26 @@ export const RegisterObject = () => {
           className="w-full bg-black p-2"
         />
         {/* --------------- */}
-
-        <input type="submit" placeholder="send" className="mt-4 p-2" />
       </form>
+
+      <form onSubmit={handleSendTag} className="w-2/4">
+        {/* --------------- */}
+        <label htmlFor="" className="text-black mt-6">
+          Tags:
+        </label>
+        <Multiselect
+          tags={tagsDb}
+          tagsSelected={tags}
+          handleTags={handleTags}
+          handleTag={handleTag}
+        />
+
+        {/* --------------- */}
+      </form>
+
+      <button onClick={handleSend} className="mt-4 p-2 bg-black">
+        Enviar
+      </button>
     </div>
   );
 };

@@ -1,13 +1,19 @@
 import { StylesConfig } from 'react-select';
 
 export const styles: StylesConfig<any, true> = {
+  input: (styles) => ({
+    ...styles,
+    color: 'white',
+  }),
   control: (styles, { menuIsOpen }) => ({
     ...styles,
     backgroundColor: 'black',
+    color: 'white',
   }),
   menu: (styles) => ({
     ...styles,
     backgroundColor: 'red',
+    color: 'white',
   }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {

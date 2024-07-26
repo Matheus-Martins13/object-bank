@@ -64,20 +64,22 @@ export const findAllCategories = async () => {
   }
 };
 
-export const registerSubcategory = async (subcategory: string, category: string) => {
+export const registerSubcategory = async (
+  subcategory: string,
+  category: string,
+) => {
   try {
     const response = await api.post('subcategory', { subcategory, category });
     const responseData = await response.data;
     responseData['error'] = false;
     return responseData;
   } catch (err: any) {
-      return {
-        error: true,
-        message: err.response.data.message[0],
-      };
+    return {
+      error: true,
+      message: err.response.data.message[0],
+    };
   }
 };
-
 
 export const findAllSubcategoriesInCategory = async (idCategory: string) => {
   try {
@@ -94,6 +96,19 @@ export const findAllSubcategoriesInCategory = async (idCategory: string) => {
   }
 };
 
+export const registerTag = async (name: string) => {
+  try {
+    const response = await api.post('tag', { name });
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    return {
+      error: true,
+      message: err.response.data.message[0],
+    };
+  }
+};
 
 export const findAllTags = async () => {
   try {
