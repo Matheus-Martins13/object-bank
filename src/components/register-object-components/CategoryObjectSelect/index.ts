@@ -1,0 +1,1 @@
+export { CategoryObjectSelect } from './CategoryObjectSelect';

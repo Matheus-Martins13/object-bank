@@ -9,12 +9,12 @@ import { getCookie } from '@/actions/get-cookie';
 import { deleteCookie } from '@/actions/delete-cookie';
 
 export const AuthContext = createContext<{
-  payload: PayloadDto | any;
+  payload: { idUser: string; type: string } | any;
   signIn: (email: string, password: string) => any;
   signOut: () => any;
   logged: boolean;
 }>({
-  payload: { sub: '', type: '' },
+  payload: { idUser: '', type: '' },
   signIn: () => {},
   signOut: () => {},
   logged: false,

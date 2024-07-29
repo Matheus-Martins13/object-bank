@@ -1,0 +1,1 @@
+export { SubcategoryObjectSelect } from './SubcategoryObjectSelect';

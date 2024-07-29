@@ -1,3 +1,7 @@
+import { CategoryDto } from './category.dto';
+import { SubcategoryDto } from './subcategory.dto';
+import { TagDto } from './tag.dto';
+
 export interface ObjectDto {
   idObject: string;
   name: string;
@@ -12,5 +16,16 @@ export interface ObjectDto {
   };
   category: string;
   subcategory: string;
-  tags: { name: string; }[];
+  tags: { name: string }[];
+}
+
+export interface ObjectSendDto {
+  name: string;
+  description: string;
+  category: CategoryDto | undefined;
+  subcategory: SubcategoryDto | undefined;
+  tags: TagDto[];
+  thumb: File | undefined;
+  objectFile: File | undefined;
+  user: string;
 }

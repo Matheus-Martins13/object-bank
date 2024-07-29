@@ -1,0 +1,1 @@
+export { TagObjectSelect } from './TagObjectSelect';

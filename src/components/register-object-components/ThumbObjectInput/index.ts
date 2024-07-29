@@ -1,0 +1,1 @@
+export { ThumbObjectInput } from './ThumbObjectInput';

@@ -7,6 +7,8 @@ import { Loading } from '@/components/global-components';
 import { Header } from '@/components/object-components/Header';
 import { Comments } from '@/components/object-components';
 
+import './style.css';
+
 export const Object = ({ idObject }: { idObject: any }) => {
   const router = useRouter();
   const [object, setObject] = useState<ObjectDto>();
@@ -57,17 +59,21 @@ export const Object = ({ idObject }: { idObject: any }) => {
     return (
       <div
         id="object"
-        className="min-w-full min-h-screen bg-primary-2 md:flex md:flex-col md:items-center"
+        className="min-w-full min-h-screen bg-white md:flex md:items-center md:justify-center"
       >
-        <div id="container" className="w-3/4 mt-8 ms-8">
+        <div id="container" className="w-2/4 mt-8 ms-8">
           <Header object={object} />
 
           <div id="object-picture" className="">
             <figure>
-              <img src={object.objectPicture.path} alt="" className="w-full" />
+              <img
+                src={object.objectPicture.path}
+                alt=""
+                className="w-full md:w-2/4"
+              />
               <figcaption>
-                <span className="">Categoria:</span> {object.category} |
-                Subcategoria: {object.subcategory} | Tags:{' '}
+                <span className="text-black">Categoria:</span> {object.category}{' '}
+                | Subcategoria: {object.subcategory} | Tags:
                 {object.tags.map((tag) => (
                   <div key={`${tag}${Math.random()}`}>{tag.name}</div>
                 ))}
@@ -76,11 +82,10 @@ export const Object = ({ idObject }: { idObject: any }) => {
           </div>
 
           <div id="object-description" className="mt-8">
-            <p>{object.description}</p>
+            <p className="text-black">{object.description}</p>
           </div>
-
-          <Comments />
         </div>
+        <Comments />
       </div>
     );
   }

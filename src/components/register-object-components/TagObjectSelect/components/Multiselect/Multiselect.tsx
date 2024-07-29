@@ -8,11 +8,13 @@ export const Multiselect = ({
   tagsSelected,
   handleTags,
   handleTag,
+  handleSendTag
 }: {
   tags: any;
   tagsSelected: any;
   handleTags: (event: any) => void;
   handleTag: (event: any) => void;
+  handleSendTag: (event: any) => void;
 }) => {
   return (
     <CreatableSelect
@@ -24,6 +26,7 @@ export const Multiselect = ({
       styles={styles}
       onChange={handleTags}
       onInputChange={handleTag}
+      onKeyDown={handleSendTag}
       placeholder="Escolha as tags"
     />
   );

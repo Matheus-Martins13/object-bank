@@ -1,52 +1,69 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+// import { useAuthContext } from '@/context/authContext';
+import { TagDbDto, TagDto } from '@/dtos/tag.dto';
+import { CategoryDto } from '@/dtos/category.dto';
+import { SubcategoryDto } from '@/dtos/subcategory.dto';
+import { validateObject } from './utils/validate-object';
+import { ObjectSendDto } from '@/dtos/object.dto';
+import {
+  CategoryObjectSelect,
+  DescriptionObjectInput,
+  FileObjectInput,
+  NameObjectInput,
+  SubcategoryObjectSelect,
+  ThumbObjectInput,
+  TagObjectSelect,
+} from '@/components/register-object-components';
 import {
   findAllCategories,
   findAllSubcategoriesInCategory,
   findAllTags,
+  registerObject,
   registerTag,
 } from '@/services/axios';
-import { Multiselect } from '@/components/register-object-components/Multiselect';
-import { TagInterface } from '@/dtos/tag.dto';
-
 import toast from 'react-hot-toast';
 
 export const RegisterObject = () => {
-  const [categories, setCategories] = useState([]);
-  const [subcategories, setSubcatecories] = useState([]);
+  const { user } = { user: { idUser: '4ce18dfb-32a0-45d0-b4ee-19e3ce5949a2' } };
+  const [categories, setCategories] = useState<CategoryDto[]>([]);
+  const [subcategories, setSubcatecories] = useState<SubcategoryDto[]>([]);
 
-  const [objectName, setObjectName] = useState('');
-  const [objectDescription, setObjectDescription] = useState('');
-  const [category, setCategory] = useState();
-  const [subcategory, setSubcategory] = useState();
+  const [objectName, setObjectName] = useState<string>('');
+  const [objectDescription, setObjectDescription] = useState<string>('');
 
-  const [tagsDb, setTagsDb] = useState<
-    { value: string; label: string; idTag: string }[]
-  >([]);
-  const [tags, setTags] = useState<
-    { value: string; label: string; idTag?: string }[]
-  >([]);
-  const [tag, setTag] = useState();
+  const [category, setCategory] = useState<CategoryDto>();
+  const [subcategory, setSubcategory] = useState<SubcategoryDto>();
 
-  const [thumb, setThumb] = useState();
-  const [objectFile, setObjectFile] = useState();
+  const [thumb, setThumb] = useState<File>();
+  const [thumbView, setThumbView] = useState<string>('');
+  const [objectFile, setObjectFile] = useState<File>();
+
+  const [tagsDb, setTagsDb] = useState<TagDto[]>([]);
+  const [tags, setTags] = useState<TagDto[]>([]);
+  const [tag, setTag] = useState<string>('');
+
+  //  -----  LOADS
+  const loadTags = async () => {
+    const tagsFound: TagDbDto[] = await findAllTags();
+
+    const options: TagDto[] = [];
+
+    tagsFound.forEach((tag: any) => {
+      options.push({
+        value: tag.name,
+        label: tag.name,
+        idTag: tag.idTag,
+      });
+    });
+
+    setTagsDb(options);
+  };
 
   const loadCategories = async () => {
     const categoriesFound = await findAllCategories();
     setCategories(categoriesFound);
-  };
-
-  const loadTags = async () => {
-    const tagsFound = await findAllTags();
-
-    const options: any = [];
-
-    tagsFound.forEach((tag: any) => {
-      options.push({ value: tag.name, label: tag.name, idTag: tag.idTag });
-    });
-
-    setTagsDb(options);
   };
 
   const loadSubcategories = async (idCategory: string) => {
@@ -58,6 +75,10 @@ export const RegisterObject = () => {
     loadCategories();
     loadTags();
   }, []);
+
+  // ---- END LOADS
+
+  // ---- HANDLES
 
   const handleObjectName = (event: any) => {
     setObjectName(event.target.value);
@@ -77,7 +98,14 @@ export const RegisterObject = () => {
   };
 
   const handleThumb = (event: any) => {
-    setThumb(event.target.files[0]);
+    if (event.target.files && event.target.files[0]) {
+      setThumb(event.target.files[0]);
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        setThumbView(e.target.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   };
 
   const handleObjectFile = (event: any) => {
@@ -93,7 +121,7 @@ export const RegisterObject = () => {
   };
 
   const handleSendTag = async (event: any) => {
-    event.preventDefault();
+    if (!(event.code == 'Enter')) return;
     try {
       if (tag) {
         const response = await registerTag(tag);
@@ -114,23 +142,7 @@ export const RegisterObject = () => {
   const handleSend = async (event: any) => {
     event.preventDefault();
 
-    // if (!objectName) {
-    //   return toast.error('O nome do objeto é obrigatório');
-    // }
-    // if (!objectDescription) {
-    //   return toast.error('A descrição do objeto é obrigatória');
-    // }
-    // if (!category) {
-    //   return toast.error('A categoria do objeto deve ser selecionada');
-    // }
-    // if (!subcategory) {
-    //   return toast.error('A subcategoria do objeto deve ser selecionada');
-    // }
-    // if (!objectFile) {
-    //   return toast.error('Você deve enviar um arquivo para o objeto');
-    // }
-
-    const data = {
+    const object: ObjectSendDto = {
       name: objectName,
       description: objectDescription,
       category,
@@ -138,16 +150,37 @@ export const RegisterObject = () => {
       tags,
       thumb,
       objectFile,
+      user: user.idUser,
     };
 
-    console.log(data);
+    const isValid = validateObject(object);
+
+    if (isValid.error) return toast.error(isValid.message);
+
+    console.log(object);
 
     try {
-      // const response = await registerSubcategory(subcategory, category);
-      // if (response.error) return toast.error(response.message);
-      // return toast.success(
-      //   `Subcategoria '${subcategory}' cadastrada com sucesso`,
-      // );
+      const formData: any = new FormData();
+
+      formData.append('name', object.name);
+      formData.append('description', object.description);
+      formData.append('category', object.category);
+      formData.append('subcategory', object.subcategory);
+      formData.append('tags', object.tags);
+      formData.append('objectFile', object.objectFile);
+      formData.append('objectFile', object.thumb);
+
+      const response = await registerObject(formData);
+      if (response.error) return toast.error(response.message);
+
+      setObjectName('');
+      setObjectDescription('');
+      setCategory(undefined);
+      setSubcategory(undefined);
+      setTags([]);
+      setThumb(undefined);
+      setObjectFile(undefined);
+      return toast.success(`Objeto '${objectName}' cadastrado com sucesso`);
     } catch (err) {
       console.log('ERROR:' + err);
     }
@@ -160,135 +193,54 @@ export const RegisterObject = () => {
     >
       <form className="w-2/4" onSubmit={handleSend}>
         {/* --------------- */}
-        <label htmlFor="object-name" className="text-black">
-          Nome do objeto
-        </label>
-        <input
-          placeholder="Nome do objeto"
-          type="text"
-          name="object-name"
-          id="object-name"
-          value={objectName}
-          onChange={handleObjectName}
-          className="w-full bg-black p-2"
+        <NameObjectInput
+          objectName={objectName}
+          handleObjectName={handleObjectName}
         />
         {/* --------------- */}
 
         {/* --------------- */}
-        <label htmlFor="object-description" className="text-black">
-          Descrição do objeto
-        </label>
-        <textarea
-          placeholder="Descrição do objeto"
-          name="object-description"
-          id="object-description"
-          value={objectDescription}
-          onChange={handleObjectDescription}
-          className="w-full bg-black p-2"
+        <DescriptionObjectInput
+          objectDescription={objectDescription}
+          handleObjectDescription={handleObjectDescription}
         />
         {/* --------------- */}
 
         {/* --------------- */}
-        <label htmlFor="category-object" className="text-black">
-          Escolha a categoria do objeto:
-        </label>
-
-        <select
-          id="category-object"
-          className="w-full bg-black p-2"
-          defaultValue={'DEFAULT'}
-          onChange={handleCategory}
-        >
-          <option value="DEFAULT" disabled>
-            Selecione a categoria do objeto
-          </option>
-          {categories ? (
-            categories?.map((cat: any) => (
-              <option key={cat.idCategory} value={cat.idCategory}>
-                {cat.name}
-              </option>
-            ))
-          ) : (
-            <div>Loading...</div>
-          )}
-        </select>
+        <CategoryObjectSelect
+          handleCategory={handleCategory}
+          categories={categories}
+        />
         {/* --------------- */}
 
         {/* --------------- */}
         {category && (
-          <div>
-            <label htmlFor="object-subcategory" className="text-black">
-              Escolha a subcategoria do objeto:
-            </label>
-
-            <select
-              id="object-subcategory"
-              className="w-full bg-black p-2"
-              defaultValue={'DEFAULT'}
-              onChange={handleSubcategory}
-            >
-              <option value="DEFAULT" disabled>
-                Selecione a subcategoria do objeto
-              </option>
-
-              {subcategories ? (
-                subcategories?.map((subcat: any) => (
-                  <option key={subcat.idSubcategory} value={subcat.idCategory}>
-                    {subcat.name}
-                  </option>
-                ))
-              ) : (
-                <div>Loading...</div>
-              )}
-            </select>
-          </div>
+          <SubcategoryObjectSelect
+            handleSubcategory={handleSubcategory}
+            subcategories={subcategories}
+          />
         )}
         {/* --------------- */}
 
         {/* --------------- */}
-        <label htmlFor="object-thumb" className="text-black">
-          Thumb:
-        </label>
-        <input
-          type="file"
-          accept="image/png, image/jpeg"
-          name="object-thumb"
-          id="object-thumb"
-          onChange={handleThumb}
-          className="w-full bg-black p-2"
-        />
+        <ThumbObjectInput handleThumb={handleThumb} />
+        {thumb && <img src={thumbView} className="w-80" />}
         {/* --------------- */}
 
         {/* --------------- */}
-        <label htmlFor="object-file" className="text-black">
-          Objeto:
-        </label>
-        <input
-          type="file"
-          name="object-file"
-          id="object-file"
-          onChange={handleObjectFile}
-          className="w-full bg-black p-2"
-        />
+        <FileObjectInput handleObjectFile={handleObjectFile} />
         {/* --------------- */}
       </form>
 
-      <form onSubmit={handleSendTag} className="w-2/4">
-        {/* --------------- */}
-        <label htmlFor="" className="text-black mt-6">
-          Tags:
-        </label>
-        <Multiselect
-          tags={tagsDb}
-          tagsSelected={tags}
-          handleTags={handleTags}
-          handleTag={handleTag}
-        />
+      <TagObjectSelect
+        handleSendTag={handleSendTag}
+        handleTag={handleTag}
+        handleTags={handleTags}
+        tags={tags}
+        tagsDb={tagsDb}
+      />
 
-        {/* --------------- */}
-      </form>
-
-      <button onClick={handleSend} className="mt-4 p-2 bg-black">
+      <button onClick={handleSend} className="mt-4 p-2 bg-black" type="button">
         Enviar
       </button>
     </div>
