@@ -23,7 +23,7 @@ export const SubcategoryObjectSelect = ({
 
         {subcategories ? (
           subcategories?.map((subcat: any) => (
-            <option key={subcat.idSubcategory} value={subcat.idCategory}>
+            <option key={subcat.idSubcategory} value={subcat.idSubcategory}>
               {subcat.name}
             </option>
           ))

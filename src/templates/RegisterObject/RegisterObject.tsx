@@ -157,8 +157,6 @@ export const RegisterObject = () => {
 
     if (isValid.error) return toast.error(isValid.message);
 
-    console.log(object);
-
     try {
       const formData: any = new FormData();
 
@@ -169,6 +167,7 @@ export const RegisterObject = () => {
       formData.append('tags', object.tags);
       formData.append('objectFile', object.objectFile);
       formData.append('objectFile', object.thumb);
+      formData.append('user', user.idUser);
 
       const response = await registerObject(formData);
       if (response.error) return toast.error(response.message);
