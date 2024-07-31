@@ -7,6 +7,9 @@ export const Navbar = () => {
       <DrawerComponent />
 
       <ul id="navigation-md" className="flex p-2">
+      <li className="mx-2">
+          <Link href="/">Início</Link>
+        </li>
         <li className="mx-2">
           <Link href="/profile">Perfil</Link>
         </li>

@@ -5,3 +5,12 @@ export interface CategoryDto {
   name: string;
   objects: ObjectDto[];
 }
+
+export interface CategoryWithObjectsDto {
+  idCategory: string,
+  name: string,
+  createdAt: string,
+  updatedAt: string,
+  object: []
+}
+

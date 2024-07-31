@@ -65,6 +65,21 @@ export const findAllCategories = async () => {
   }
 };
 
+export const findAllCategoriesWithObjects = async () => {
+  try {
+    const response = await api.get('category/find-all-with-objects');
+    const responseData = await response.data;
+    return responseData;
+  } catch (err: any) {
+    if (err.response.data) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    } else return err;
+  }
+};
+
 export const registerSubcategory = async (
   subcategory: string,
   category: string,

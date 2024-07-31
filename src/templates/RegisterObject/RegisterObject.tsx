@@ -164,7 +164,7 @@ export const RegisterObject = () => {
       formData.append('description', object.description);
       formData.append('category', object.category);
       formData.append('subcategory', object.subcategory);
-      formData.append('tags', object.tags);
+      formData.append('tags', JSON.stringify(object.tags));
       formData.append('objectFile', object.objectFile);
       formData.append('objectFile', object.thumb);
       formData.append('user', user.idUser);
