@@ -163,6 +163,22 @@ export const registerObject = async (object: FormData) => {
   }
 };
 
+export const findObjectById = async (idObject: string) => {
+  try {
+    const response = await api.get(`object/${idObject}`);
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response.data) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
 export const findAllComments = async () => {
   try {
     const response = await api.get('comments');

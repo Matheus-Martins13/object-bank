@@ -8,6 +8,7 @@ import { Header } from '@/components/object-components/Header';
 import { Comments } from '@/components/object-components';
 
 import './style.css';
+import { findObjectById } from '@/services/axios';
 
 export const Object = ({ idObject }: { idObject: any }) => {
   const router = useRouter();
@@ -31,24 +32,8 @@ export const Object = ({ idObject }: { idObject: any }) => {
   const getObject = async () => {
     // se id inválido, retornar retornar usuário para tela 404
 
-    setTimeout(() => {
-      return setObject({
-        idObject: 'hjasj1',
-        name: 'Objeto 1',
-        description: 'Decrição do objeto 1',
-        objectPicture: {
-          name: 'nome1',
-          path: 'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
-        },
-        user: {
-          idUser: '',
-          name: '',
-        },
-        category: 'Categoria 1',
-        subcategory: 'Subcategpria1',
-        tags: [{ name: 'tag1' }],
-      });
-    }, 1000);
+    const objectFound = await findObjectById(idObject);
+    setObject(objectFound);
   };
 
   useEffect(() => {
