@@ -108,7 +108,7 @@ export const Comments = () => {
         disabled={idUser ? false : false}
         name="comment-text"
         id="comment-text"
-        className="bg-gray-100 w-full text-black p-2 sm:w-2/4"
+        className="bg-gray-100 w-full text-black p-2 "
         value={comment}
         onChange={handleComment}
         onKeyDownCapture={handleSendComment}

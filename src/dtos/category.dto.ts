@@ -3,7 +3,8 @@ import { ObjectDto } from "./object.dto";
 export interface CategoryDto {
   idCategory: string;
   name: string;
-  objects: ObjectDto[];
+  updatedAt: string;
+  createdAt: string;
 }
 
 export interface CategoryWithObjectsDto {
@@ -11,6 +12,6 @@ export interface CategoryWithObjectsDto {
   name: string,
   createdAt: string,
   updatedAt: string,
-  object: []
+  object: ObjectDto[]
 }
 

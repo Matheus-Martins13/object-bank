@@ -1,22 +1,22 @@
 import { CategoryDto } from './category.dto';
+import { ObjectFileDto } from './object-file.dto';
+import { ObjectPictureDto } from './object-picture.dto';
 import { SubcategoryDto } from './subcategory.dto';
-import { TagDto } from './tag.dto';
+import { TagDbDto, TagDto } from './tag.dto';
 
 export interface ObjectDto {
   idObject: string;
   name: string;
   description: string;
-  objectPicture: {
-    name: string;
-    path: string;
-  };
+  objectPicture: ObjectPictureDto;
+  objectFile: ObjectFileDto;
+  category: CategoryDto;
+  subcategory: SubcategoryDto;
   user: {
     idUser: string;
     name: string;
   };
-  category: string;
-  subcategory: string;
-  tags: { name: string }[];
+  tag: TagDbDto[];
 }
 
 export interface ObjectSendDto {
