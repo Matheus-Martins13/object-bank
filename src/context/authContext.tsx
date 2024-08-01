@@ -47,10 +47,10 @@ export const AuthProvider = ({
 
     if (payloadFound.token) {
       const decoded: PayloadDto = jwtDecode(payloadFound.token);
-      const payloadFormated = { idUser: decoded.sub, type: decoded.type };
-      setPayload(payloadFormated);
+      const payloadFormatted = { idUser: decoded.sub, type: decoded.type };
+      setPayload(payloadFormatted);
 
-      await setCookie('payload', JSON.stringify(payloadFormated));
+      await setCookie('payload', JSON.stringify(payloadFormatted));
       await setCookie('token', payloadFound.token);
 
       router.push('/');

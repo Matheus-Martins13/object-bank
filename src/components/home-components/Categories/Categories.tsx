@@ -13,8 +13,11 @@ export const Categories = () => {
 
     const categories: CategoryWithObjectsDto[] =
       await findAllCategoriesWithObjects();
-    console.log(categories);
-    setCategories(categories);
+    const categoriesFormatted: CategoryWithObjectsDto[] = categories.filter(
+      (category) => category.object.length > 0,
+    );
+
+    setCategories(categoriesFormatted);
   };
 
   useEffect(() => {
@@ -31,10 +34,10 @@ export const Categories = () => {
             </div>
           ))
         ) : (
-          <div className="text-black">Nenhuma categoria cadastrada</div>
+          <div className="text-black">Nenhum objeto encontrado</div>
         )
       ) : (
-        <div className='text-black'>Carregando...</div>
+        <div className="text-black">Carregando...</div>
       )}
     </div>
   );

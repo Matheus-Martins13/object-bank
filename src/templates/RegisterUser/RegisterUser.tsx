@@ -4,7 +4,7 @@ import { Form } from '@/components/register-user-components';
 import { ChangeEvent, useState } from 'react';
 import { validate } from './utils/validate.util';
 import { formatEstado } from './utils/format-estado';
-import { register } from '@/services/axios';
+import { registerUser } from '@/services/axios';
 import toast from 'react-hot-toast';
 
 export const RegisterUser = () => {
@@ -45,8 +45,8 @@ export const RegisterUser = () => {
       fetch(`https://viacep.com.br/ws/${cepCap}/json/`)
         .then((response) => response.json())
         .then((data) => {
-          const estadoFormated = formatEstado(data.uf);
-          setEstado(estadoFormated);
+          const estadoFormatted = formatEstado(data.uf);
+          setEstado(estadoFormatted);
           setCidade(data.localidade);
           setBairro(data.bairro);
           setLogradouro(data.logradouro);
@@ -152,7 +152,7 @@ export const RegisterUser = () => {
 
       // console.log(data);
 
-      const response = await register(formData);
+      const response = await registerUser(formData);
 
       if (response.error) {
         return toast.error(response.message);

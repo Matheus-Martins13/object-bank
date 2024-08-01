@@ -19,9 +19,9 @@ export const login = async (email: string, password: string) => {
   }
 };
 
-export const register = async (data: FormData) => {
+export const registerUser = async (data: FormData) => {
   try {
-    const response = await api.post('users', data, {
+    const response = await api.post('user', data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     const responseData = await response.data;

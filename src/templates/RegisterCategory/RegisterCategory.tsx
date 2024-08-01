@@ -16,7 +16,7 @@ export const RegisterCategory = () => {
     if (!category) return toast.error('O nome da categoria é obrigatório');
     try {
       const response = await registerCategory(category);
-      if (response.error) return toast.error(response.error);
+      if (response.error) return toast.error(response.message);
 
       return toast.success(`Categoria '${category}' cadastrada com sucesso`);
     } catch (err) {
