@@ -1,4 +1,5 @@
-import { Dropdown } from './components';
+import { Dropdown, DrawerComponent } from './components';
+
 import Link from 'next/link';
 
 import './style.css';
@@ -6,7 +7,7 @@ import './style.css';
 export const Navbar = () => {
   const categoriesDropdown = [
     { name: 'Cadastrar categoria', link: '/category/register' },
-    { name: 'Gerenciar categorias', link: 'category/management' },
+    { name: 'Gerenciar categorias', link: '/category/management' },
   ];
   const subcategoriesDropdown = [
     { name: 'Cadastrar subcategoria', link: '/subcategory/register' },
@@ -22,8 +23,9 @@ export const Navbar = () => {
   ];
 
   return (
-    <nav className="navbar flex items-center justify-between">
-      <div>
+    <nav className="navbar flex items-center justify-between p-4 sm:p-0">
+      <DrawerComponent />
+      <div className="hidden md:block">
         <Link href="/">Início</Link>
         <Dropdown name="Categorias" links={categoriesDropdown} />
         <Dropdown name="Subcategorias" links={subcategoriesDropdown} />

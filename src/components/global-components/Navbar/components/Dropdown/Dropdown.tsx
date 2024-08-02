@@ -15,7 +15,9 @@ export const Dropdown = ({
       </button>
       <div className="dropdown-content">
         {links.map((link) => (
-          <Link href={link.link}>{link.name}</Link>
+          <Link key={`${link.name}${Math.random()}`} href={link.link}>
+            {link.name}
+          </Link>
         ))}
       </div>
     </div>

@@ -3,6 +3,6 @@ export { Login } from './Login';
 export { Object } from './Object';
 export { Profile } from './Profile';
 export { RegisterUser } from './RegisterUser';
-export { RegisterCategory } from './RegisterCategory';
+export { RegisterCategory } from './Category/Register';
 export { RegisterSubcategory } from './RegisterSubcategory';
 export { RegisterObject } from './RegisterObject';

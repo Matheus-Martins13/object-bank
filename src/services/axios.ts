@@ -80,6 +80,34 @@ export const findAllCategoriesWithObjects = async () => {
   }
 };
 
+export const updateCategory = async (idCategory: string, name: string) => {
+  try {
+    const response = await api.patch(`category/${idCategory}`, { name });
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    return {
+      error: true,
+      message: err.response.data.message[0],
+    };
+  }
+};
+
+export const deleteCategory = async (idCategory: string) => {
+  try {
+    const response = await api.delete(`category/${idCategory}`);
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    return {
+      error: true,
+      message: err.response.data.message[0],
+    };
+  }
+};
+
 export const registerSubcategory = async (
   subcategory: string,
   category: string,
