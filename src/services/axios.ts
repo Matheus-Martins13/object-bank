@@ -167,6 +167,7 @@ export const findObjectById = async (idObject: string) => {
   try {
     const response = await api.get(`object/${idObject}`);
     const responseData = await response.data;
+    if (!responseData) return null;
     responseData['error'] = false;
     return responseData;
   } catch (err: any) {
@@ -203,6 +204,58 @@ export const registerComment = async (comment: any) => {
     return responseData;
   } catch (err: any) {
     if (err.response.data) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
+export const findFavorite = async (idObject: string, idUser: string) => {
+  try {
+    const response = await api.post('favorite/find-favorite', {
+      idObject,
+      idUser,
+    });
+    const responseData = await response.data;
+    if (!responseData) return null;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
+export const registerFavorite = async (idObject: string, idUser: string) => {
+  try {
+    const response = await api.post(`favorite`, { idObject, idUser });
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
+export const removeFavorite = async (idFavorite: string) => {
+  try {
+    const response = await api.delete(`favorite/${idFavorite}`);
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
       return {
         error: true,
         message: err.response.data.message[0],
