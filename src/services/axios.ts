@@ -179,9 +179,9 @@ export const findObjectById = async (idObject: string) => {
   }
 };
 
-export const findAllComments = async () => {
+export const findAllComments = async (idObject: string) => {
   try {
-    const response = await api.get('comments');
+    const response = await api.get(`comment/${idObject}`);
     const responseData = await response.data;
     responseData['error'] = false;
     return responseData;
@@ -195,9 +195,9 @@ export const findAllComments = async () => {
   }
 };
 
-export const registerComment = async (comment: string, idUser: string) => {
+export const registerComment = async (comment: any) => {
   try {
-    const response = await api.post('comments', { comment, idUser });
+    const response = await api.post('comment', comment);
     const responseData = await response.data;
     responseData['error'] = false;
     return responseData;

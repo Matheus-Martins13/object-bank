@@ -9,10 +9,9 @@ export const Categories = () => {
   const [categories, setCategories] = useState<CategoryWithObjectsDto[]>();
 
   const loadCategories = async () => {
-    console.log('teste');
-
     const categories: CategoryWithObjectsDto[] =
       await findAllCategoriesWithObjects();
+
     const categoriesFormatted: CategoryWithObjectsDto[] = categories.filter(
       (category) => category.object.length > 0,
     );

@@ -58,10 +58,12 @@ export const Object = ({ idObject }: { idObject: any }) => {
             <Metadata object={object} objectType={objectType} />
 
             <button className="text-black bg-slate-500 p-2 rounded-md my-4 mb-10">
-              Donwload
+              <a href={object.objectFile.path} target="_blank">
+                Abrir
+              </a>
             </button>
           </div>
-          <Comments />
+          <Comments idObject={object.idObject} />
         </div>
       </div>
     );

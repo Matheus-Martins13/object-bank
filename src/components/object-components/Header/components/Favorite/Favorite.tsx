@@ -1,1 +1,5 @@
-export const Favorite = () => {};
+"use client";
+
+export const Favorite = () => {
+    return <></>
+};

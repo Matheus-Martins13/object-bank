@@ -2,69 +2,47 @@
 
 import { useState, useEffect } from 'react';
 import { useAuthContext } from '@/context/authContext';
-import { registerComment } from '@/services/axios';
+import { findAllComments, registerComment } from '@/services/axios';
+import toast from 'react-hot-toast';
 
 interface CommentDto {
   idComment: string;
+  idUser: string;
+  idObject: string;
+  createdAt: string;
+  updateAt: string;
   description: string;
   user: {
     idUser: string;
     name: string;
     profilePicture: {
-      name: string;
       path: string;
     };
   };
 }
 
-export const Comments = () => {
+export const Comments = ({ idObject }: { idObject: string }) => {
   const { payload } = useAuthContext();
-  const [idUser, setIdUser] = useState();
+  const idUser = 'c57195cc-8283-4109-93e1-197f573bb6c2';
+  // const [idUser, setIdUser] = useState();
 
   const [comments, setComments] = useState<CommentDto[]>([]);
-  const [comment, setComment] = useState<string | undefined>('');
+  const [comment, setComment] = useState<string>('');
 
   const loadComments = async () => {
-    const commentsFound: CommentDto[] = [
-      {
-        idComment: 'asdjaosidaosidaois',
-        description:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industryds standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially u',
-        user: {
-          idUser: 'asdkjalsdk',
-          name: 'Matheus de Souza Martins',
-          profilePicture: {
-            name: 'profile-picture',
-            path: 'https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg',
-          },
-        },
-      },
-      {
-        idComment: 'asdjaosidaosidsdasdasdas',
-        description:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially u',
-        user: {
-          idUser: 'asdkjasdfsdlsdk',
-          name: 'Outra pessoa',
-          profilePicture: {
-            name: 'profile-picture',
-            path: 'https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg',
-          },
-        },
-      },
-    ];
+    const commentsFound: CommentDto[] = await findAllComments(idObject);
     setComments(commentsFound);
   };
 
-  const loadUser = async () => {
-    if (payload) {
-      setIdUser(payload.idUser ? payload.idUser : undefined);
-    }
-  };
+  // const loadUser = async () => {
+  //   if (payload) {
+  //     setIdUser(payload.idUser ? payload.idUser : undefined);
+  //   }
+  // };
 
   useEffect(() => {
     loadComments();
-    loadUser();
+    // loadUser();
   }, []);
 
   const handleComment = (event: any) => {
@@ -74,26 +52,22 @@ export const Comments = () => {
   const handleSendComment = async (event: any) => {
     if (event.code == 'Enter') {
       event.preventDefault();
+      if (!idObject) return;
       if (!comment) return;
-      // if (!idUser) return;
+      if (!idUser) return;
 
       try {
-        console.log('passow');
-        // const response = await registerComment(comment, idUser);
-        // if (response.error) return toast.error(response.error);
+        const newComment = {
+          idObject,
+          idUser,
+          comment,
+        };
+
+        const response = await registerComment(newComment);
+        if (response.error) return toast.error(response.error);
         const newComments = comments;
-        newComments.push({
-          idComment: 'sdfsdfsdfsdfsd',
-          description: comment,
-          user: {
-            idUser: 'asdasdasdasd',
-            name: 'Pessoa comentante',
-            profilePicture: {
-              name: 'profile-picture',
-              path: 'https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg',
-            },
-          },
-        });
+        newComments.push(response);
+
         setComments(newComments);
         setComment('');
       } catch (err) {
@@ -118,24 +92,29 @@ export const Comments = () => {
             : 'Você precisa fazer login para comentar'
         }
       ></textarea>
-      {comments.map((comment) => (
-        <div
-          key={comment.idComment}
-          className="bg-gray-300 p-2 text-black my-2"
-        >
-          <div className="flex mb-4 items-center justify-start">
-            <img
-              src={comment.user.profilePicture.path}
-              className="rounded-full w-8 h-8"
-            />
 
-            <h1 className="text-black font-bold text-sm ms-4">
-              {comment.user.name}
-            </h1>
+      {comments.length > 0 ? (
+        comments.map((comment) => (
+          <div
+            key={comment.idComment}
+            className="bg-gray-300 p-2 text-black my-2"
+          >
+            <div className="flex mb-4 items-center justify-start">
+              <img
+                src={`http://localhost:3001${comment.user.profilePicture.path}`}
+                className="rounded-full w-8 h-8"
+              />
+
+              <h1 className="text-black font-bold text-sm ms-4">
+                {comment.user.name}
+              </h1>
+            </div>
+            <p className="text-black text-sm">{comment.description}</p>
           </div>
-          <p className="text-black text-sm">{comment.description}</p>
-        </div>
-      ))}
+        ))
+      ) : (
+        <div className="text-black">Nenhum comentário neste objeto</div>
+      )}
     </div>
   );
 };
