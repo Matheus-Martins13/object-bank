@@ -1,31 +1,36 @@
-import { DrawerComponent } from './components/Drawer';
+import { Dropdown } from './components';
 import Link from 'next/link';
 
-export const Navbar = () => {
-  return (
-    <nav className="flex justify-between items-center w-full h-16 bg-secondary text-red-200">
-      <DrawerComponent />
+import './style.css';
 
-      <ul id="navigation-md" className="flex p-2">
-      <li className="mx-2">
-          <Link href="/">Início</Link>
-        </li>
-        <li className="mx-2">
-          <Link href="/profile">Perfil</Link>
-        </li>
-        <li className="mx-2">
-          <Link href="/register-category">Cadastrar categoria</Link>
-        </li>
-        <li className="mx-2">
-          <Link href="/register-subcategory">Cadastrar subcategoria</Link>
-        </li>
-        <li className="mx-2">
-          <Link href="/register-user">Cadastrar usuário</Link>
-        </li>
-        <li className="mx-2">
-          <Link href="/object/register-object">Cadastrar objeto</Link>
-        </li>
-      </ul>
+export const Navbar = () => {
+  const categoriesDropdown = [
+    { name: 'Cadastrar categoria', link: '/category/register' },
+    { name: 'Gerenciar categorias', link: 'category/management' },
+  ];
+  const subcategoriesDropdown = [
+    { name: 'Cadastrar subcategoria', link: '/subcategory/register' },
+    { name: 'Gerenciar categorias', link: '/subcategory/management' },
+  ];
+  const userDropdown = [
+    { name: 'Cadastrar usuário', link: '/user/register' },
+    { name: 'Gerenciar usuários', link: '/user/management' },
+  ];
+  const objectDropdown = [
+    { name: 'Cadastrar objeto', link: '/object/register' },
+    { name: 'Gerenciar objetos', link: '/object/management' },
+  ];
+
+  return (
+    <nav className="navbar flex items-center justify-between">
+      <div>
+        <Link href="/">Início</Link>
+        <Dropdown name="Categorias" links={categoriesDropdown} />
+        <Dropdown name="Subcategorias" links={subcategoriesDropdown} />
+        <Dropdown name="Usuários" links={userDropdown} />
+        <Dropdown name="Objetos" links={objectDropdown} />
+      </div>
+      <div>TESTE</div>
     </nav>
   );
 };

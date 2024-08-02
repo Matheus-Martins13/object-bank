@@ -7,7 +7,7 @@ export const Header = ({ object }: { object: ObjectDto }) => {
       <div id="object-title" className="font-bold text-xl mb-4">
         <h1 className="text-black">{object.name}</h1>
       </div>
-      <Favorite object={object} />
+      <Favorite idObject={object.idObject} />
     </div>
   );
 };

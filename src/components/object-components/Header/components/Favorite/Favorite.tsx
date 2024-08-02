@@ -4,7 +4,6 @@ import favorite from './favourite.png';
 import noFavorite from './heart.png';
 
 import Image from 'next/image';
-import { ObjectDto } from '@/dtos/object.dto';
 import {
   findFavorite,
   registerFavorite,
@@ -12,12 +11,14 @@ import {
 } from '@/services/axios';
 import toast from 'react-hot-toast';
 
-export const Favorite = ({ object }: { object: ObjectDto }) => {
+export const Favorite = ({ idObject }: { idObject: string }) => {
+  const idUser = '9b3811c0-63f4-4d02-8dd4-caec0028d147';
+
   const [isFavorite, setIsFavorite] = useState(false);
   const [idFavorite, setIdFavorite] = useState<string>('');
 
   const loadFavorite = async () => {
-    const response = await findFavorite(object.idObject, object.user.idUser);
+    const response = await findFavorite(idObject, idUser);
 
     if (response) {
       setIsFavorite(true);
@@ -32,10 +33,7 @@ export const Favorite = ({ object }: { object: ObjectDto }) => {
   const handleFavorite = async () => {
     try {
       if (!isFavorite) {
-        const response = await registerFavorite(
-          object.idObject,
-          object.user.idUser,
-        );
+        const response = await registerFavorite(idObject, idUser);
         if (response.error) return toast.error(response.message);
       } else {
         const response = await removeFavorite(idFavorite);
@@ -49,6 +47,8 @@ export const Favorite = ({ object }: { object: ObjectDto }) => {
     }
     setIsFavorite(!isFavorite);
   };
+
+  if (!idUser) return <></>;
 
   return (
     <div className="min-w-10 cursor-pointer" onClick={handleFavorite}>
