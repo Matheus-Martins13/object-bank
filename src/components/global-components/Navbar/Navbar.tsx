@@ -28,7 +28,7 @@ export const Navbar = () => {
     <nav className="navbar flex items-center justify-between w-full p-4 sm:p-0">
       <DrawerComponent />
       <div className="hidden md:flex items-center">
-      <Image src={logo} alt='' width={150} className='p-2 me-4'/>
+      <Image src={logo} alt='' width={130} className='p-2 me-4'/>
 
         <Link href="/">Início</Link>
         <Dropdown name="Categorias" links={categoriesDropdown} />
