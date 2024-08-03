@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ObjectDto } from '@/dtos/object.dto';
 import { Loading } from '@/components/global-components';
 import { Header } from '@/components/object-components/Header';
@@ -11,7 +11,10 @@ import { formatTypes } from './utils/format-type';
 
 import './style.css';
 
-export const Object = ({ idObject }: { idObject: any }) => {
+export const Object = () => {
+  const search = useSearchParams();
+  const idObject = search.get('idObject');
+
   const router = useRouter();
   const [object, setObject] = useState<ObjectDto>();
   const [objectType, setObjectType] = useState<string>('');
@@ -19,7 +22,7 @@ export const Object = ({ idObject }: { idObject: any }) => {
   if (!idObject) router.push('/');
 
   const getObject = async () => {
-    const response = await findObjectById(idObject);
+    const response = await findObjectById(idObject as string);
 
     if (!response) return router.push('/');
 
