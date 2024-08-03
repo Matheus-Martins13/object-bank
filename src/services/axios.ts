@@ -2,7 +2,7 @@ import { ObjectSendDto } from '@/dtos/object.dto';
 import Axios from 'axios';
 
 export const api = Axios.create({
-  baseURL: 'http://www.api.raptorise.com.br',
+  baseURL: 'http://api.raptorise.com.br',
 });
 
 export const login = async (email: string, password: string) => {

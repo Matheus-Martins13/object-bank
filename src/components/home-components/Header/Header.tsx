@@ -9,7 +9,7 @@ export const Header = () => {
           autoPlay={true}
           muted
           loop
-          src="http://www.api.raptorise.com.br/video/header-video.mp4"
+          src="http://api.raptorise.com.br/video/header-video.mp4"
         ></video>
       </div>
 
