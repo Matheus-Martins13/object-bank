@@ -35,6 +35,7 @@ export const Favorite = ({ idObject }: { idObject: string }) => {
       if (!isFavorite) {
         const response = await registerFavorite(idObject, idUser);
         if (response.error) return toast.error(response.message);
+        loadFavorite();
       } else {
         const response = await removeFavorite(idFavorite);
         if (response.error) return toast.error(response.message);
