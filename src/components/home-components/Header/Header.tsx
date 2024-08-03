@@ -13,8 +13,7 @@ export const Header = () => {
         ></video>
       </div>
 
-      <div id="home-top-image">
-      </div>
+      <div id="home-top-image"></div>
 
       <div
         id="text-header"
@@ -22,7 +21,7 @@ export const Header = () => {
       >
         <div className="flex flex-col items-center justify-center w-3/4 md:w-3/4 md:text-lg lg:w-1/3">
           <p className="text-center text-sm font-bold m-2 md:text-2xl">
-            Liberte sua criatividade com imagens, vídeos, fotos e muito mais
+            Acervo digital da Editora Legacy. Construindo um legado!
           </p>
           <input className="m-2 md:w-3/4" type="text" />
         </div>
