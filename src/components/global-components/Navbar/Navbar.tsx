@@ -2,7 +2,9 @@ import { Dropdown, DrawerComponent } from './components';
 
 import Link from 'next/link';
 
+import logo from '@/assets/logo.png';
 import './style.css';
+import Image from 'next/image';
 
 export const Navbar = () => {
   const categoriesDropdown = [
@@ -23,16 +25,18 @@ export const Navbar = () => {
   ];
 
   return (
-    <nav className="navbar flex items-center justify-between p-4 sm:p-0">
+    <nav className="navbar flex items-center justify-between w-full p-4 sm:p-0">
       <DrawerComponent />
-      <div className="hidden md:block">
+      <div className="hidden md:flex items-center">
+      <Image src={logo} alt='' width={150} className='p-2 me-4'/>
+
         <Link href="/">Início</Link>
         <Dropdown name="Categorias" links={categoriesDropdown} />
         <Dropdown name="Subcategorias" links={subcategoriesDropdown} />
         <Dropdown name="Usuários" links={userDropdown} />
         <Dropdown name="Objetos" links={objectDropdown} />
       </div>
-      <div>TESTE</div>
+      <div className=''>TESTE</div>
     </nav>
   );
 };

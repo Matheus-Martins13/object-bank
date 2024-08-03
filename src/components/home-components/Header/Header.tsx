@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import logo from '@/assets/logo.png';
 import './style.css';
 
 export const Header = () => {
@@ -21,7 +23,7 @@ export const Header = () => {
       >
         <div className="flex flex-col items-center justify-center w-3/4 md:w-3/4 md:text-lg lg:w-1/3">
           <p className="text-center text-sm font-bold m-2 md:text-2xl">
-            Acervo digital da Editora Legacy. Construindo um legado!
+            Acervo digital da Editora Legacy. Construindo um legado.
           </p>
           <input className="m-2 md:w-3/4" type="text" />
         </div>
