@@ -5,7 +5,7 @@ import { deleteCategory, findAllCategoriesWithObjects } from '@/services/axios';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
-export const Management = () => {
+export const ManagementSubcategory = () => {
   const [categories, setCategories] = useState<CategoryWithObjectsDto[]>();
 
   const loadCategories = async () => {
@@ -45,7 +45,7 @@ export const Management = () => {
     return (
       <div className="flex flex-col justify-center items-center my-4">
         <h1 className="text-black font-bold text-xl">
-          Gerenciamento de categorias
+          Gerenciamento de subcategorias
         </h1>
         {categories.map((category) => (
           <div

@@ -1,0 +1,1 @@
+export { ManagementSubcategory } from './ManagementSubcategory';

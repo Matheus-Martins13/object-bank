@@ -1,0 +1,1 @@
+export { ManagementCategory } from './Management';
