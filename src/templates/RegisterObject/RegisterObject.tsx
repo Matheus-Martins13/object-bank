@@ -26,7 +26,7 @@ import {
 import toast from 'react-hot-toast';
 
 export const RegisterObject = () => {
-  const { user } = { user: { idUser: '9b3811c0-63f4-4d02-8dd4-caec0028d147' } };
+  const { user } = { user: { idUser: 'ef949fdc-1e31-4727-ba63-1660896733dc' } };
   const [categories, setCategories] = useState<CategoryDto[]>([]);
   const [subcategories, setSubcatecories] = useState<SubcategoryDto[]>([]);
 

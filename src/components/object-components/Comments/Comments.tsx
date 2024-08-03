@@ -23,7 +23,7 @@ interface CommentDto {
 
 export const Comments = ({ idObject }: { idObject: string }) => {
   const { payload } = useAuthContext();
-  const idUser = 'c57195cc-8283-4109-93e1-197f573bb6c2';
+  const idUser = 'ef949fdc-1e31-4727-ba63-1660896733dc';
   // const [idUser, setIdUser] = useState();
 
   const [comments, setComments] = useState<CommentDto[]>([]);
