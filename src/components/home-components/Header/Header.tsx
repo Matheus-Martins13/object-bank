@@ -5,7 +5,7 @@ export const Header = () => {
     <section id="header" className="w-full flex relative">
       <div id="home-top-video" className="w-full bg-gray-900">
         <video
-          className="w-full opacity-35"
+          className="w-full opacity-60"
           autoPlay={true}
           muted
           loop
