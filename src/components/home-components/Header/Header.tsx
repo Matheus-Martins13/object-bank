@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import logo from '@/assets/logo.png';
 import './style.css';
 
 export const Header = () => {
@@ -22,7 +20,7 @@ export const Header = () => {
         className="absolute w-full flex flex-col items-center justify-center top-1/4"
       >
         <div className="flex flex-col items-center justify-center w-3/4 md:w-3/4 md:text-lg lg:w-1/3">
-          <p className="text-center text-sm font-bold m-2 md:text-2xl">
+          <p className="text-center text-sm font-bold m-2 md:text-2xl text-white">
             Acervo digital da Editora Legacy. Construindo um legado.
           </p>
           <input className="m-2 md:w-3/4" type="text" />

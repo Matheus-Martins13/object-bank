@@ -1,16 +1,17 @@
 'use client';
+
 import { useState } from 'react';
-import { Box, Typography, Modal } from '@mui/material';
+import { Box, Modal } from '@mui/material';
 import { CategoryDto } from '@/dtos/category.dto';
-import toast from 'react-hot-toast';
 import { updateCategory } from '@/services/axios';
 
-export const MyModal = ({
-  textButton,
+import EditIcon from '@mui/icons-material/Edit';
+import toast from 'react-hot-toast';
+
+export const EditCategoryModal = ({
   category,
   loadCategories,
 }: {
-  textButton: string;
   category: CategoryDto;
   loadCategories: () => {};
 }) => {
@@ -55,7 +56,9 @@ export const MyModal = ({
 
   return (
     <div>
-      <button onClick={handleOpen}>{textButton}</button>
+      <button onClick={handleOpen} className="text-blue-400">
+        <EditIcon color="primary" />
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -75,12 +78,13 @@ export const MyModal = ({
             value={name}
             onChange={handleName}
             placeholder="Nome da categoria"
-            style={{ backgroundColor: 'black' }}
-            className="w-full p-2 mt-2"
+            style={{ backgroundColor: '#333' }}
+            className="w-full p-2 mt-2 text-white"
           />
 
           <button
-            className="text-black mt-9 p-1 bg-gray-400"
+            className="mt-9 p-2 text-white"
+            style={{ backgroundColor: '#333' }}
             onClick={handleSave}
           >
             Salvar

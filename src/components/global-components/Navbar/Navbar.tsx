@@ -3,8 +3,8 @@ import { Dropdown, DrawerComponent } from './components';
 import Link from 'next/link';
 
 import logo from '@/assets/logo.png';
-import './style.css';
 import Image from 'next/image';
+import './style.css';
 
 export const Navbar = () => {
   const categoriesDropdown = [

@@ -1,0 +1,1 @@
+export { MyAccordion } from './MyAccordion';
