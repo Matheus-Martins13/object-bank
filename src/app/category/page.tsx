@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
-import { Object } from '@/templates/Object';
+import { Category } from '@/templates/category';
 
 export default function ObjectPage() {
   return (
     <Suspense>
-      <Object />
+      <Category />
     </Suspense>
   );
 }

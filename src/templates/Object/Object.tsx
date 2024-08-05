@@ -7,7 +7,7 @@ import { Loading } from '@/components/global-components';
 import { Header } from '@/components/object-components/Header';
 import { Comments, Metadata, Picture } from '@/components/object-components';
 import { findObjectById } from '@/services/axios';
-import { formatTypes } from './utils/format-type';
+import { formatTypes } from '@/utils/format-type';
 
 import './style.css';
 

@@ -3,18 +3,18 @@
 import { useEffect, useState } from 'react';
 import { Category } from './components';
 import { findAllCategoriesWithObjects } from '@/services/axios';
-import { CategoryWithObjectsDto } from '@/dtos/category.dto';
+import { CategoryWithSubcategoriesDto } from '@/dtos/category.dto';
 
 export const Categories = () => {
-  const [categories, setCategories] = useState<CategoryWithObjectsDto[]>();
+  const [categories, setCategories] =
+    useState<CategoryWithSubcategoriesDto[]>();
 
   const loadCategories = async () => {
-    const categories: CategoryWithObjectsDto[] =
+    const categories: CategoryWithSubcategoriesDto[] =
       await findAllCategoriesWithObjects();
 
-    const categoriesFormatted: CategoryWithObjectsDto[] = categories.filter(
-      (category) => category.object.length > 0,
-    );
+    const categoriesFormatted: CategoryWithSubcategoriesDto[] =
+      categories.filter((category) => category.subcategory.length > 0);
 
     setCategories(categoriesFormatted);
   };
@@ -33,7 +33,9 @@ export const Categories = () => {
             </div>
           ))
         ) : (
-          <div className="text-black">Nenhum objeto encontrado</div>
+          <div className="text-black">
+            Nenhuma categoria com objetos encontrada
+          </div>
         )
       ) : (
         <div className="text-black">Carregando...</div>

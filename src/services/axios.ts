@@ -2,7 +2,7 @@ import { ObjectSendDto } from '@/dtos/object.dto';
 import Axios from 'axios';
 
 export const api = Axios.create({
-  baseURL: 'http://api.raptorise.com.br',
+  baseURL: 'http://localhost:3001',
 });
 
 export const login = async (email: string, password: string) => {
@@ -67,7 +67,7 @@ export const findAllCategories = async () => {
 
 export const findAllCategoriesWithObjects = async () => {
   try {
-    const response = await api.get('category/find-all-with-objects');
+    const response = await api.get('category/find-all-complet');
     const responseData = await response.data;
     return responseData;
   } catch (err: any) {
@@ -138,6 +138,23 @@ export const findAllSubcategoriesInCategory = async (idCategory: string) => {
         message: err.response.data.message[0],
       };
     } else return err;
+  }
+};
+
+export const updateSubcategory = async (
+  idSubcategory: string,
+  name: string,
+) => {
+  try {
+    const response = await api.patch(`subcategory/${idSubcategory}`, { name });
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    return {
+      error: true,
+      message: err.response.data.message[0],
+    };
   }
 };
 

@@ -12,6 +12,7 @@ export const RegisterSubcategory = () => {
   const loadCategories = async () => {
     const categoriesFound = await findAllCategories();
     setCategories(categoriesFound);
+    return categoriesFound;
   };
 
   useEffect(() => {

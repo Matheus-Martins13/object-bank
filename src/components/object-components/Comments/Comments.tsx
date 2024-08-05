@@ -101,7 +101,7 @@ export const Comments = ({ idObject }: { idObject: string }) => {
           >
             <div className="flex mb-4 items-center justify-start">
               <img
-                src={`http://api.raptorise.com.br${comment.user.profilePicture.path}`}
+                src={`http://localhost:3001${comment.user.profilePicture.path}`}
                 className="rounded-full w-8 h-8"
               />
 

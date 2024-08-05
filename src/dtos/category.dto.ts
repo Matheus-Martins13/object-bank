@@ -1,4 +1,4 @@
-import { ObjectDto } from "./object.dto";
+import { ObjectDto } from './object.dto';
 
 export interface CategoryDto {
   idCategory: string;
@@ -7,11 +7,14 @@ export interface CategoryDto {
   createdAt: string;
 }
 
-export interface CategoryWithObjectsDto {
-  idCategory: string,
-  name: string,
-  createdAt: string,
-  updatedAt: string,
-  object: ObjectDto[]
+export interface CategoryWithSubcategoriesDto {
+  idCategory: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  subcategory: {
+    idSubcategory: string;
+    name: string;
+    object: ObjectDto[];
+  }[];
 }
-

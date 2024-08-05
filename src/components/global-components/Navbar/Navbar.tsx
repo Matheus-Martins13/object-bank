@@ -7,6 +7,8 @@ import Image from 'next/image';
 import './style.css';
 
 export const Navbar = () => {
+  const unig = true;
+
   const categoriesDropdown = [
     { name: 'Cadastrar categoria', link: '/category/register' },
     { name: 'Gerenciar categorias', link: '/category/management' },
@@ -25,7 +27,11 @@ export const Navbar = () => {
   ];
 
   return (
-    <nav className="navbar flex items-center justify-between w-full p-4 sm:p-0">
+    <nav
+      className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
+        unig ? 'bg-secondary' : ''
+      }`}
+    >
       <DrawerComponent />
       <div className="hidden md:flex items-center">
         <Link href="/">Início</Link>
@@ -34,7 +40,7 @@ export const Navbar = () => {
         <Dropdown name="Usuários" links={userDropdown} />
         <Dropdown name="Objetos" links={objectDropdown} />
       </div>
-      <Image src={logo} alt="" width={130} className="p-2 me-4" />
+      {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
     </nav>
   );
 };

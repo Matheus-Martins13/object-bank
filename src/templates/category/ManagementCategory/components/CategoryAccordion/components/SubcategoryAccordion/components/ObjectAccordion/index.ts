@@ -1,0 +1,1 @@
+export { ObjectAccordion } from './ObjectAccordion';

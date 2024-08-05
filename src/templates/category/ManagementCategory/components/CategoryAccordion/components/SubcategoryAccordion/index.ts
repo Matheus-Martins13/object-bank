@@ -1,0 +1,1 @@
+export { SubcategoryAccordion } from './SubcategoryAccordion';
