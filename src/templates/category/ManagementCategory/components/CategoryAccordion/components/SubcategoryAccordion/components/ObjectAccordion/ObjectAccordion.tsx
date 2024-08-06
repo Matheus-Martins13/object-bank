@@ -4,7 +4,6 @@ import { Topic } from '@/templates/category/ManagementCategory/components/Catego
 import { formatTypes } from '@/utils/format-type';
 import { EditObjectModal } from './components';
 import { CategoryWithSubcategoriesDto } from '@/dtos/category.dto';
-import { SubcategoryWithObjectsDto } from '@/dtos/subcategory.dto';
 import Link from 'next/link';
 
 export const ObjectAccordion = ({

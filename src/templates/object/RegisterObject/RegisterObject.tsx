@@ -15,7 +15,7 @@ import {
   SubcategoryObjectSelect,
   ThumbObjectInput,
   TagObjectSelect,
-} from '@/components/register-object-components';
+} from './components';
 import {
   findAllCategories,
   findAllSubcategoriesInCategory,

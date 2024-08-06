@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Object } from '@/templates/Object';
+import { Object } from '@/templates';
 
 export default function ObjectPage() {
   return (

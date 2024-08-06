@@ -10,7 +10,7 @@ import {
   findAllTags,
   registerTag,
 } from '@/services/axios';
-import { styles } from '@/components/register-object-components/TagObjectSelect/components/Multiselect/style';
+import { styles } from '@/templates/object/RegisterObject/components/TagObjectSelect/components/Multiselect/style';
 import { TagDbDto, TagDto } from '@/dtos/tag.dto';
 import toast from 'react-hot-toast';
 import CreatableSelect from 'react-select/creatable';

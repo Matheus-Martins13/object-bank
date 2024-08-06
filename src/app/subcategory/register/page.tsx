@@ -1,4 +1,4 @@
-import { RegisterSubcategory } from '@/templates/subcategory/RegisterSubcategory';
+import { RegisterSubcategory } from '@/templates';
 
 export default function RegisterSubcategoryPage() {
   return <RegisterSubcategory />;

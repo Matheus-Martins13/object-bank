@@ -1,4 +1,4 @@
-import { RegisterCategory } from '@/templates/category/Register';
+import { RegisterCategory } from '@/templates';
 
 export default function RegisterCategoryPage(){
   return <RegisterCategory />

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ObjectDto } from '@/dtos/object.dto';
 import { Loading } from '@/components/global-components';
-import { Header } from '@/components/object-components/Header';
-import { Comments, Metadata, Picture } from '@/components/object-components';
+import { Comments, Header, Metadata, Picture } from './components';
+
 import { findObjectById } from '@/services/axios';
 import { formatTypes } from '@/utils/format-type';
 

@@ -80,6 +80,21 @@ export const findAllCategoriesWithObjects = async () => {
   }
 };
 
+export const findCategoryByIdComplet = async (idCategory: string) => {
+  try {
+    const response = await api.get(`category/find-complet-by-id/${idCategory}`);
+    const responseData = await response.data;
+    return responseData;
+  } catch (err: any) {
+    if (err.response.data) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    } else return err;
+  }
+};
+
 export const updateCategory = async (idCategory: string, name: string) => {
   try {
     const response = await api.patch(`category/${idCategory}`, { name });

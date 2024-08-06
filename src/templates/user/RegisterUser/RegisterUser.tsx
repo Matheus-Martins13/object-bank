@@ -1,6 +1,6 @@
 'use client';
 
-import { Form } from '@/components/register-user-components';
+import { Form } from './components';
 import { ChangeEvent, useState } from 'react';
 import { validate } from './utils/validate.util';
 import { formatEstado } from './utils/format-estado';

@@ -1,10 +1,6 @@
-export { Home } from './Home';
-export { Login } from './Login';
-export { Object } from './Object';
-export { Profile } from './Profile';
-export { RegisterUser } from './RegisterUser';
-
-export { ManagementCategory, RegisterCategory } from './category';
+export { Home } from './home';
+export { Login } from './login';
+export { Object, RegisterObject } from './object';
+export { ManagementCategory, RegisterCategory, Category } from './category';
 export { ManagementSubcategory, RegisterSubcategory } from './subcategory';
-
-export { RegisterObject } from './RegisterObject';
+export { User, RegisterUser } from './user';

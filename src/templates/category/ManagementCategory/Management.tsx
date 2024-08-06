@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 export const ManagementCategory = () => {
   const [categories, setCategories] =
     useState<CategoryWithSubcategoriesDto[]>();
-  const [textFilter, setTextFilter] = useState();
+  const [textFilter, setTextFilter] = useState<string>('');
 
   const loadCategories = async () => {
     try {
@@ -20,16 +20,24 @@ export const ManagementCategory = () => {
       const categoriesFormatted = formatCategory(categories);
 
       if (textFilter) {
+        const textFilterLowerCase = textFilter.toLowerCase();
+
         const categoriesWithFilter = categories.filter(
           (category: CategoryWithSubcategoriesDto) => {
-            if (category.name.includes(textFilter)) return category;
+            if (category.name.toLowerCase().includes(textFilterLowerCase))
+              return category;
 
             for (const subcategory of category.subcategory) {
-              if (subcategory.name.includes(textFilter)) return category;
+              if (subcategory.name.toLowerCase().includes(textFilterLowerCase))
+                return category;
 
               for (const object of subcategory.object) {
-                if (object.name.includes(textFilter)) return category;
-                if (object.description.includes(textFilter)) return category;
+                if (object.name.toLowerCase().includes(textFilterLowerCase))
+                  return category;
+                if (
+                  object.description.toLowerCase().includes(textFilterLowerCase)
+                )
+                  return category;
               }
             }
           },

@@ -1,5 +1,5 @@
 'use client';
-import { Form } from '@/components/register-category-components';
+import { Form } from './components';
 import { registerCategory } from '@/services/axios';
 import { ChangeEvent, useState } from 'react';
 import toast from 'react-hot-toast';

@@ -1,6 +1,5 @@
-import { Categories } from '@/components/home-components/Categories';
-import { Header } from '@/components/home-components/Header';
-import { Sidebar } from '@/components/global-components/Sidebar';
+import { Categories, Header } from './components';
+import { Sidebar } from '@/components/global-components/';
 
 export const Home = () => {
   return (

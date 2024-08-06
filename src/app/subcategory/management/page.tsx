@@ -1,4 +1,4 @@
-import { ManagementSubcategory } from '@/templates/subcategory';
+import { ManagementSubcategory } from '@/templates';
 
 export default function CategoryManagementPage() {
   return <ManagementSubcategory />;
