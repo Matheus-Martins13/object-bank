@@ -1,13 +1,13 @@
 'use client';
 
-import { CategoryWithSubcategoriesDto } from '@/dtos/category.dto';
-import { deleteCategory, findAllCategoriesWithObjects } from '@/services/axios';
 import { useState, useEffect } from 'react';
+import { CategoryWithSubcategoriesDto } from '@/dtos/category.dto';
+import { findAllCategoriesWithObjects } from '@/services/axios';
 import { formatCategory } from './utils/format-category.util';
 import { CategoryAccordion } from './components';
 import toast from 'react-hot-toast';
 
-export const ManagementCategory = () => {
+export const Management = () => {
   const [categories, setCategories] =
     useState<CategoryWithSubcategoriesDto[]>();
   const [textFilter, setTextFilter] = useState<string>('');
@@ -58,28 +58,6 @@ export const ManagementCategory = () => {
     setTextFilter(event.target.value);
   };
 
-  const handleDelete = async (category: CategoryWithSubcategoriesDto) => {
-    try {
-      const confirm = window.confirm(
-        `Você tem certeza que deseja apagar a categoria '${category.name}'`,
-      );
-
-      if (confirm) {
-        if (category.subcategory.length > 0)
-          return toast.error(
-            'Você não pode apagar categorias com conteúdo cadastrado',
-          );
-        const response = await deleteCategory(category.idCategory);
-        if (response.error) return toast.error(response.message);
-
-        toast.success(`Categoria '${category.name}' apagada com sucesso`);
-        loadCategories();
-      }
-    } catch (err) {
-      console.log('ERR: ' + err);
-    }
-  };
-
   if (categories) {
     return (
       <div className="flex flex-col justify-center items-center my-4 w-full">
@@ -97,7 +75,7 @@ export const ManagementCategory = () => {
         </div>
 
         {categories.map((category) => (
-          <div className="w-3/4 md:2/4 mt-4">
+          <div className="w-3/4 md:2/4 mt-4" key={category.idCategory}>
             <CategoryAccordion
               category={category}
               loadCategories={loadCategories}

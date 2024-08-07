@@ -4,4 +4,5 @@ export {
   Navbar,
   Rodape,
   Sidebar,
+  Topic,
 } from './global-components';

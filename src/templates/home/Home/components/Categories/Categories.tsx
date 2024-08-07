@@ -26,17 +26,11 @@ export const Categories = () => {
   return (
     <div className="w-11/12 sm:w-3/5 lg:w-2/4 lg:self-start lg:ms-10">
       {categories ? (
-        categories.length > 0 ? (
-          categories?.map((cat) => (
-            <div key={cat.idCategory}>
-              <Category key={cat.idCategory} cat={cat} />
-            </div>
-          ))
-        ) : (
-          <div className="text-black">
-            Nenhuma categoria com objetos encontrada
+        categories?.map((cat) => (
+          <div key={cat.idCategory}>
+            <Category key={cat.idCategory} cat={cat} />
           </div>
-        )
+        ))
       ) : (
         <div className="text-black">Carregando...</div>
       )}

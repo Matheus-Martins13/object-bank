@@ -1,10 +1,13 @@
 import { MyAccordion } from '@/components/global-components';
 import { ObjectDto } from '@/dtos/object.dto';
-import { Topic } from '@/templates/category/ManagementCategory/components/CategoryAccordion/components';
 import { formatTypes } from '@/utils/format-type';
 import { EditObjectModal } from './components';
 import { CategoryWithSubcategoriesDto } from '@/dtos/category.dto';
+import { Topic } from '@/components';
+
 import Link from 'next/link';
+import toast from 'react-hot-toast';
+import { removeObject } from '@/services/axios';
 
 export const ObjectAccordion = ({
   object,
@@ -15,6 +18,25 @@ export const ObjectAccordion = ({
   loadCategories: () => {};
   categories: CategoryWithSubcategoriesDto[];
 }) => {
+  const handleDelete = async (event: any) => {
+    event.preventDefault();
+    try {
+      const confirm = window.confirm(
+        `Você tem certeza que deseja apagar o objeto '${object.name}'?`,
+      );
+
+      if (confirm) {
+        const response = await removeObject(object.idObject);
+        if (response.error) return toast.error(response.message);
+
+        toast.success(`Objeto '${object.name}' apagado com sucesso`);
+        loadCategories();
+      }
+    } catch (err) {
+      console.log('ERR: ' + err);
+    }
+  };
+
   return (
     <MyAccordion
       title={object.name}
@@ -41,7 +63,11 @@ export const ObjectAccordion = ({
           object={object}
           categories={categories}
         />
-        <span className="text-red-600">Apagar</span>
+
+        <span className="text-red-600 cursor-pointer" onClick={handleDelete}>
+          Apagar
+        </span>
+
         <Link
           className="ms-4 text-amber-950"
           href={{

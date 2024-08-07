@@ -5,13 +5,14 @@ import { Box, Modal } from '@mui/material';
 import { ObjectDto } from '@/dtos/object.dto';
 import { CategoryDto, CategoryWithSubcategoriesDto } from '@/dtos/category.dto';
 import { SubcategoryDto } from '@/dtos/subcategory.dto';
+import { styles } from '@/templates/object/RegisterObject/components/TagObjectSelect/components/Multiselect/style';
+import { TagDbDto, TagDto } from '@/dtos/tag.dto';
 import {
   findAllSubcategoriesInCategory,
   findAllTags,
   registerTag,
+  updateObject,
 } from '@/services/axios';
-import { styles } from '@/templates/object/RegisterObject/components/TagObjectSelect/components/Multiselect/style';
-import { TagDbDto, TagDto } from '@/dtos/tag.dto';
 import toast from 'react-hot-toast';
 import CreatableSelect from 'react-select/creatable';
 
@@ -35,7 +36,6 @@ export const EditObjectModal = ({
   const [tagsDb, setTagsDb] = useState<TagDto[]>([]);
   const [tags, setTags] = useState<TagDto[]>([]);
   const [tag, setTag] = useState();
-  const [isChange, setChange] = useState(false);
 
   const [subcategories, setSubcategories] = useState<SubcategoryDto[]>();
 
@@ -104,6 +104,13 @@ export const EditObjectModal = ({
 
   const handleCategory = async (event: any) => {
     loadSubcategories(event.target.value);
+    setSubcategory({
+      name: '',
+      idCategory: '',
+      idSubcategory: '',
+      updatedAt: '',
+      createdAt: '',
+    });
     setCategory(event.target.value);
   };
 
@@ -112,7 +119,6 @@ export const EditObjectModal = ({
   };
 
   const handleTags = (event: any) => {
-    setChange(true);
     setTags(event);
   };
 
@@ -120,24 +126,49 @@ export const EditObjectModal = ({
     setTag(event);
   };
 
-  const handleSave = async () => {
-    if (!name)
-      return toast.error('Você não pode salvar a subcategoria sem um nome');
+  const handleSendTag = async (event: any) => {
+    if (!(event.code == 'Enter')) return;
     try {
-      // if (isChange) {
-      //   const response = await registerTag(tag);
-      //   if (response.error) return toast.error(response.message);
-      //   const updatedTags = tags;
-      //   updatedTags.push({
-      //     value: response.name,
-      //     label: response.name,
-      //     idTag: response.idTag,
-      //   });
-      //   setTags(updatedTags);
-      // }
-      // const response = await updateSubcategory(subcategory.idSubcategory, name);
-      // if (response.error) return toast.error(response.message);
-      toast.success('Subcategoria atualizada com sucesso');
+      if (tag) {
+        const response = await registerTag(tag);
+        if (response.error) return toast.error(response.message);
+        const updatedTags = tags;
+        updatedTags.push({
+          value: response.name,
+          label: response.name,
+          idTag: response.idTag,
+        });
+        setTags(updatedTags);
+      }
+    } catch (err) {
+      console.log('ERROR: ' + err);
+    }
+  };
+
+  const handleSave = async (event: any) => {
+    event.preventDefault();
+
+    if (!name) return toast.error('Você não pode salvar o objeto sem um nome');
+
+    if (!description)
+      return toast.error('Você não pode salvar o objeto sem uma descrição');
+    if (!category)
+      return toast.error('Você não pode salvar o objeto sem uma categoria');
+    if (!subcategory)
+      return toast.error('Você não pode salvar o objeto sem uma subcategoria');
+    try {
+      const objectToUpdate = {
+        name,
+        description,
+        category,
+        subcategory,
+        tags: JSON.stringify(tags),
+      };
+
+      const response = await updateObject(object.idObject, objectToUpdate);
+      if (response.error) return toast.error(response.message);
+
+      toast.success('Objeto atualizado com sucesso');
       setTimeout(() => {
         loadCategories();
         setOpen(false);
@@ -244,12 +275,12 @@ export const EditObjectModal = ({
                 );
               })
             ) : (
-              <div>Loading...</div>
+              <></>
             )}
           </select>
 
           <label htmlFor="" className="text-black mb-2 block">
-            Tags:{' '}
+            Tags:
           </label>
 
           <CreatableSelect
@@ -261,6 +292,7 @@ export const EditObjectModal = ({
             styles={styles}
             onChange={handleTags}
             onInputChange={handleTag}
+            onKeyDown={handleSendTag}
             placeholder="Escolha as tags"
           />
 

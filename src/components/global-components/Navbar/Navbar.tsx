@@ -9,21 +9,16 @@ import './style.css';
 export const Navbar = () => {
   const unig = true;
 
-  const categoriesDropdown = [
+  const managementDropdown = [
     { name: 'Cadastrar categoria', link: '/category/register' },
-    { name: 'Gerenciar categorias', link: '/category/management' },
-  ];
-  const subcategoriesDropdown = [
     { name: 'Cadastrar subcategoria', link: '/subcategory/register' },
-    { name: 'Gerenciar categorias', link: '/subcategory/management' },
+    { name: 'Cadastrar objeto', link: '/object/register' },
+    { name: 'Painel de gerenciamento', link: '/management' },
   ];
+
   const userDropdown = [
     { name: 'Cadastrar usuário', link: '/user/register' },
     { name: 'Gerenciar usuários', link: '/user/management' },
-  ];
-  const objectDropdown = [
-    { name: 'Cadastrar objeto', link: '/object/register' },
-    { name: 'Gerenciar objetos', link: '/object/management' },
   ];
 
   return (
@@ -35,10 +30,8 @@ export const Navbar = () => {
       <DrawerComponent />
       <div className="hidden md:flex items-center">
         <Link href="/">Início</Link>
-        <Dropdown name="Categorias" links={categoriesDropdown} />
-        <Dropdown name="Subcategorias" links={subcategoriesDropdown} />
+        <Dropdown name="Gerenciar" links={managementDropdown} />
         <Dropdown name="Usuários" links={userDropdown} />
-        <Dropdown name="Objetos" links={objectDropdown} />
       </div>
       {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
     </nav>

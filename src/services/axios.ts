@@ -1,4 +1,6 @@
+import { CategoryDto } from '@/dtos/category.dto';
 import { ObjectSendDto } from '@/dtos/object.dto';
+import { SubcategoryDto } from '@/dtos/subcategory.dto';
 import Axios from 'axios';
 
 export const api = Axios.create({
@@ -109,7 +111,7 @@ export const updateCategory = async (idCategory: string, name: string) => {
   }
 };
 
-export const deleteCategory = async (idCategory: string) => {
+export const removeCategory = async (idCategory: string) => {
   try {
     const response = await api.delete(`category/${idCategory}`);
     const responseData = await response.data;
@@ -173,6 +175,22 @@ export const updateSubcategory = async (
   }
 };
 
+export const removeSubcategory = async (idSubcategory: string) => {
+  try {
+    const response = await api.delete(`subcategory/${idSubcategory}`);
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
 export const registerTag = async (name: string) => {
   try {
     const response = await api.post('tag', { name });
@@ -232,6 +250,47 @@ export const findObjectById = async (idObject: string) => {
     return responseData;
   } catch (err: any) {
     if (err.response.data) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
+export const updateObject = async (
+  idObject: string,
+  data: {
+    name: string;
+    description: string;
+    category: CategoryDto;
+    subcategory: SubcategoryDto;
+    tags: string;
+  },
+) => {
+  try {
+    const response = await api.patch(`object/${idObject}`, data);
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
+export const removeObject = async (idObject: string) => {
+  try {
+    const response = await api.delete(`object/${idObject}`);
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
       return {
         error: true,
         message: err.response.data.message[0],

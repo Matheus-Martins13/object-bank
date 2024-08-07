@@ -1,7 +1,9 @@
-import { MyAccordion } from '@/components/global-components';
+import { MyAccordion, Topic } from '@/components';
 import { CategoryWithSubcategoriesDto } from '@/dtos/category.dto';
-import { EditCategoryModal, Topic, SubcategoryAccordion } from './components/';
+import { EditCategoryModal, SubcategoryAccordion } from './components/';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { removeCategory } from '@/services/axios';
+import toast from 'react-hot-toast';
 
 export const CategoryAccordion = ({
   category,
@@ -12,6 +14,29 @@ export const CategoryAccordion = ({
   loadCategories: () => {};
   categories: CategoryWithSubcategoriesDto[];
 }) => {
+  const handleDelete = async (event: any) => {
+    event.preventDefault();
+    try {
+      const confirm = window.confirm(
+        `Você tem certeza que deseja apagar a categoria '${category.name}'?`,
+      );
+
+      if (confirm) {
+        if (category.subcategory.length > 0)
+          return toast.error(
+            'Você não pode apagar categorias com conteúdo cadastrado',
+          );
+        const response = await removeCategory(category.idCategory);
+        if (response.error) return toast.error(response.message);
+
+        toast.success(`Categoria '${category.name}' apagada com sucesso`);
+        loadCategories();
+      }
+    } catch (err) {
+      console.log('ERR: ' + err);
+    }
+  };
+
   return (
     <MyAccordion
       title={category.name}
@@ -29,7 +54,9 @@ export const CategoryAccordion = ({
           category={category}
           loadCategories={loadCategories}
         />
-        <DeleteIcon color="error" />
+        <button onClick={handleDelete}>
+          <DeleteIcon color="error" />
+        </button>
       </div>
 
       {category.subcategory.length > 0 && (
@@ -38,7 +65,7 @@ export const CategoryAccordion = ({
 
           {category.subcategory.map((subcategory) => {
             return (
-              <div>
+              <div key={subcategory.idSubcategory}>
                 <SubcategoryAccordion
                   subcategory={subcategory}
                   loadCategories={loadCategories}

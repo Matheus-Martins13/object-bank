@@ -7,6 +7,7 @@ import { findCategoryByIdComplet } from '@/services/axios';
 import { SubcategoryWithObjectsDto } from '@/dtos/subcategory.dto';
 import { ObjectDto } from '@/dtos/object.dto';
 import './style.css';
+import Link from 'next/link';
 
 export const Category = () => {
   const router = useRouter();
@@ -42,14 +43,30 @@ export const Category = () => {
         <h1 className="font-bold text-4xl mt-8 self-center">{category.name}</h1>
 
         {category.subcategory.map((subcategory: SubcategoryWithObjectsDto) => (
-          <div className="flex flex-col items-center w-11/12 self-center">
+          <div
+            className="flex flex-col items-center w-11/12 self-center"
+            key={subcategory.idSubcategory}
+          >
             <h2 className="font-bold mt-5 text-2xl mb-4 self-start">
               {subcategory.name}
             </h2>
             <div className="flex w-full" id="subcategories-grid">
               {subcategory &&
                 subcategory.object.map((obj: ObjectDto) => (
-                  <>
+                  <div key={obj.idObject}>
+                    <Link
+                      href={{
+                        pathname: '/object',
+                        query: { idObject: obj.idObject },
+                      }}
+                    >
+                      <div
+                        key={obj.idObject}
+                        className="bg-black text-white p-4"
+                      >
+                        {obj.name}
+                      </div>
+                    </Link>
                     <div key={obj.idObject} className="bg-black text-white p-4">
                       {obj.name}
                     </div>
@@ -62,10 +79,7 @@ export const Category = () => {
                     <div key={obj.idObject} className="bg-black text-white p-4">
                       {obj.name}
                     </div>
-                    <div key={obj.idObject} className="bg-black text-white p-4">
-                      {obj.name}
-                    </div>
-                  </>
+                  </div>
                 ))}
             </div>
           </div>
