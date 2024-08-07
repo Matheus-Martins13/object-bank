@@ -1,1 +1,0 @@
-export { RegisterCategory } from './RegisterCategory';

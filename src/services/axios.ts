@@ -1,6 +1,5 @@
-import { CategoryDto } from '@/dtos/category.dto';
-import { ObjectSendDto } from '@/dtos/object.dto';
-import { SubcategoryDto } from '@/dtos/subcategory.dto';
+import { CollectionDto } from '@/dtos/collection.dto';
+
 import Axios from 'axios';
 
 export const api = Axios.create({
@@ -38,9 +37,9 @@ export const registerUser = async (data: FormData) => {
   }
 };
 
-export const registerCategory = async (name: string) => {
+export const registerCollection = async (name: string) => {
   try {
-    const response = await api.post('category', { name });
+    const response = await api.post('collection', { name });
     const responseData = await response.data;
     responseData['error'] = false;
     return responseData;
@@ -52,9 +51,9 @@ export const registerCategory = async (name: string) => {
   }
 };
 
-export const findAllCategories = async () => {
+export const findAllCollections = async () => {
   try {
-    const response = await api.get('category');
+    const response = await api.get('collection');
     const responseData = await response.data;
     return responseData;
   } catch (err: any) {
@@ -67,9 +66,9 @@ export const findAllCategories = async () => {
   }
 };
 
-export const findAllCategoriesWithObjects = async () => {
+export const findAllCollectionsWithObjects = async () => {
   try {
-    const response = await api.get('category/find-all-complet');
+    const response = await api.get('collection/find-all-complete');
     const responseData = await response.data;
     return responseData;
   } catch (err: any) {
@@ -82,9 +81,11 @@ export const findAllCategoriesWithObjects = async () => {
   }
 };
 
-export const findCategoryByIdComplet = async (idCategory: string) => {
+export const findCollectionByIdComplete = async (idCollection: string) => {
   try {
-    const response = await api.get(`category/find-complet-by-id/${idCategory}`);
+    const response = await api.get(
+      `collection/find-complete-by-id/${idCollection}`,
+    );
     const responseData = await response.data;
     return responseData;
   } catch (err: any) {
@@ -97,9 +98,9 @@ export const findCategoryByIdComplet = async (idCategory: string) => {
   }
 };
 
-export const updateCategory = async (idCategory: string, name: string) => {
+export const updateCollection = async (idCollection: string, name: string) => {
   try {
-    const response = await api.patch(`category/${idCategory}`, { name });
+    const response = await api.patch(`collection/${idCollection}`, { name });
     const responseData = await response.data;
     responseData['error'] = false;
     return responseData;
@@ -111,9 +112,9 @@ export const updateCategory = async (idCategory: string, name: string) => {
   }
 };
 
-export const removeCategory = async (idCategory: string) => {
+export const removeCollection = async (idCollection: string) => {
   try {
-    const response = await api.delete(`category/${idCategory}`);
+    const response = await api.delete(`collection/${idCollection}`);
     const responseData = await response.data;
     responseData['error'] = false;
     return responseData;
@@ -122,72 +123,6 @@ export const removeCategory = async (idCategory: string) => {
       error: true,
       message: err.response.data.message[0],
     };
-  }
-};
-
-export const registerSubcategory = async (
-  subcategory: string,
-  category: string,
-) => {
-  try {
-    const response = await api.post('subcategory', { subcategory, category });
-    const responseData = await response.data;
-    responseData['error'] = false;
-    return responseData;
-  } catch (err: any) {
-    return {
-      error: true,
-      message: err.response.data.message[0],
-    };
-  }
-};
-
-export const findAllSubcategoriesInCategory = async (idCategory: string) => {
-  try {
-    const response = await api.get(`subcategory/${idCategory}`);
-    const responseData = await response.data;
-    responseData['error'] = false;
-    return responseData;
-  } catch (err: any) {
-    if (err.response.data) {
-      return {
-        error: true,
-        message: err.response.data.message[0],
-      };
-    } else return err;
-  }
-};
-
-export const updateSubcategory = async (
-  idSubcategory: string,
-  name: string,
-) => {
-  try {
-    const response = await api.patch(`subcategory/${idSubcategory}`, { name });
-    const responseData = await response.data;
-    responseData['error'] = false;
-    return responseData;
-  } catch (err: any) {
-    return {
-      error: true,
-      message: err.response.data.message[0],
-    };
-  }
-};
-
-export const removeSubcategory = async (idSubcategory: string) => {
-  try {
-    const response = await api.delete(`subcategory/${idSubcategory}`);
-    const responseData = await response.data;
-    responseData['error'] = false;
-    return responseData;
-  } catch (err: any) {
-    if (err.response['data']) {
-      return {
-        error: true,
-        message: err.response.data.message[0],
-      };
-    }
   }
 };
 
@@ -263,8 +198,7 @@ export const updateObject = async (
   data: {
     name: string;
     description: string;
-    category: CategoryDto;
-    subcategory: SubcategoryDto;
+    collection: CollectionDto;
     tags: string;
   },
 ) => {

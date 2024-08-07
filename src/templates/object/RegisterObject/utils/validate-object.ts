@@ -8,18 +8,13 @@ export const validateObject = (object: ObjectSendDto) => {
   if (!object.description) {
     return { error: true, message: 'A descrição do objeto é obrigatória' };
   }
-  if (!object.category) {
+  if (!object.collection) {
     return {
       error: true,
-      message: 'A categoria do objeto deve ser selecionada',
+      message: 'A coleção do objeto deve ser selecionada',
     };
   }
-  if (!object.subcategory) {
-    return {
-      error: true,
-      message: 'A subcategoria do objeto deve ser selecionada',
-    };
-  }
+
   if (!object.objectFile) {
     return {
       error: true,

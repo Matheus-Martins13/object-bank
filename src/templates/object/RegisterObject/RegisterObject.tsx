@@ -3,22 +3,20 @@
 import { useState, useEffect } from 'react';
 // import { useAuthContext } from '@/context/authContext';
 import { TagDbDto, TagDto } from '@/dtos/tag.dto';
-import { CategoryDto } from '@/dtos/category.dto';
-import { SubcategoryDto } from '@/dtos/subcategory.dto';
+import { CollectionDto } from '@/dtos/collection.dto';
 import { validateObject } from './utils/validate-object';
 import { ObjectSendDto } from '@/dtos/object.dto';
 import {
-  CategoryObjectSelect,
+  CollectionObjectSelect,
   DescriptionObjectInput,
   FileObjectInput,
   NameObjectInput,
-  SubcategoryObjectSelect,
   ThumbObjectInput,
   TagObjectSelect,
 } from './components';
 import {
-  findAllCategories,
-  findAllSubcategoriesInCategory,
+  findAllCollections,
+  findAllCollectionsWithObjects,
   findAllTags,
   registerObject,
   registerTag,
@@ -26,15 +24,13 @@ import {
 import toast from 'react-hot-toast';
 
 export const RegisterObject = () => {
-  const { user } = { user: { idUser: 'ef949fdc-1e31-4727-ba63-1660896733dc' } };
-  const [categories, setCategories] = useState<CategoryDto[]>([]);
-  const [subcategories, setSubcatecories] = useState<SubcategoryDto[]>([]);
+  const { user } = { user: { idUser: '3759f9c7-dd37-45f9-a0a8-d76844eed16f' } };
+  const [collections, setCollections] = useState<CollectionDto[]>([]);
 
   const [objectName, setObjectName] = useState<string>('');
   const [objectDescription, setObjectDescription] = useState<string>('');
 
-  const [category, setCategory] = useState<CategoryDto>();
-  const [subcategory, setSubcategory] = useState<SubcategoryDto>();
+  const [collection, setCollection] = useState<CollectionDto>();
 
   const [thumb, setThumb] = useState<File>();
   const [thumbView, setThumbView] = useState<string>('');
@@ -61,18 +57,13 @@ export const RegisterObject = () => {
     setTagsDb(options);
   };
 
-  const loadCategories = async () => {
-    const categoriesFound = await findAllCategories();
-    setCategories(categoriesFound);
-  };
-
-  const loadSubcategories = async (idCategory: string) => {
-    const subcategoriesFound = await findAllSubcategoriesInCategory(idCategory);
-    setSubcatecories(subcategoriesFound);
+  const loadCollections = async () => {
+    const collectionsFound = await findAllCollections();
+    setCollections(collectionsFound);
   };
 
   useEffect(() => {
-    loadCategories();
+    loadCollections();
     loadTags();
   }, []);
 
@@ -88,13 +79,8 @@ export const RegisterObject = () => {
     setObjectDescription(event.target.value);
   };
 
-  const handleCategory = (event: any) => {
-    setCategory(event.target.value);
-    loadSubcategories(event.target.value);
-  };
-
-  const handleSubcategory = (event: any) => {
-    setSubcategory(event.target.value);
+  const handleCollection = (event: any) => {
+    setCollection(event.target.value);
   };
 
   const handleThumb = (event: any) => {
@@ -145,8 +131,7 @@ export const RegisterObject = () => {
     const object: ObjectSendDto = {
       name: objectName,
       description: objectDescription,
-      category,
-      subcategory,
+      collection,
       tags,
       thumb,
       objectFile,
@@ -162,8 +147,7 @@ export const RegisterObject = () => {
 
       formData.append('name', object.name);
       formData.append('description', object.description);
-      formData.append('category', object.category);
-      formData.append('subcategory', object.subcategory);
+      formData.append('collection', object.collection);
       formData.append('tags', JSON.stringify(object.tags));
       formData.append('objectFile', object.objectFile);
       formData.append('objectFile', object.thumb);
@@ -174,8 +158,7 @@ export const RegisterObject = () => {
 
       setObjectName('');
       setObjectDescription('');
-      setCategory(undefined);
-      setSubcategory(undefined);
+      setCollection(undefined);
       setTags([]);
       setThumb(undefined);
       setObjectFile(undefined);
@@ -187,7 +170,7 @@ export const RegisterObject = () => {
 
   return (
     <div
-      id="register-category"
+      id="register-object"
       className="min-h-screen flex items-center justify-center flex-col w-full"
     >
       <form className="w-2/4" onSubmit={handleSend}>
@@ -206,19 +189,10 @@ export const RegisterObject = () => {
         {/* --------------- */}
 
         {/* --------------- */}
-        <CategoryObjectSelect
-          handleCategory={handleCategory}
-          categories={categories}
+        <CollectionObjectSelect
+          handleCollection={handleCollection}
+          collections={collections}
         />
-        {/* --------------- */}
-
-        {/* --------------- */}
-        {category && (
-          <SubcategoryObjectSelect
-            handleSubcategory={handleSubcategory}
-            subcategories={subcategories}
-          />
-        )}
         {/* --------------- */}
 
         {/* --------------- */}

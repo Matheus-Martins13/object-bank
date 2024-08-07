@@ -1,1 +1,0 @@
-export { EditSubcategoryModal } from './EditSubcategoryModal';

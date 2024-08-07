@@ -1,7 +1,6 @@
-import { CategoryDto } from './category.dto';
+import { CollectionDto } from './collection.dto';
 import { ObjectFileDto } from './object-file.dto';
 import { ObjectPictureDto } from './object-picture.dto';
-import { SubcategoryDto } from './subcategory.dto';
 import { TagDbDto, TagDto } from './tag.dto';
 
 export interface ObjectDto {
@@ -10,8 +9,7 @@ export interface ObjectDto {
   description: string;
   objectPicture: ObjectPictureDto;
   objectFile: ObjectFileDto;
-  category: CategoryDto;
-  subcategory: SubcategoryDto;
+  collection: CollectionDto;
   user: {
     idUser: string;
     name: string;
@@ -22,8 +20,7 @@ export interface ObjectDto {
 export interface ObjectSendDto {
   name: string;
   description: string;
-  category: CategoryDto | undefined;
-  subcategory: SubcategoryDto | undefined;
+  collection: CollectionDto | undefined;
   tags: TagDto[];
   thumb: File | undefined;
   objectFile: File | undefined;

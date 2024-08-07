@@ -1,1 +1,0 @@
-export { CategoryAccordion } from './CategoryAccordion';

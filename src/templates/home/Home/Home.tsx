@@ -1,4 +1,4 @@
-import { Categories, Header } from './components';
+import { Collections, Header } from './components';
 import { Sidebar } from '@/components/global-components/';
 
 export const Home = () => {
@@ -16,7 +16,7 @@ export const Home = () => {
       <Header />
 
       <div className="w-full flex justify-center md:justify-around">
-        <Categories />
+        <Collections />
         <Sidebar />
       </div>
     </main>

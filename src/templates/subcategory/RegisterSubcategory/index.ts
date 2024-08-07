@@ -1,1 +1,0 @@
-export { RegisterSubcategory } from './RegisterSubcategory';

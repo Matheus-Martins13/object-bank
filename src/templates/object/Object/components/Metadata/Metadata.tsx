@@ -11,13 +11,8 @@ export const Metadata = ({
     <div className="mt-8">
       <div className="text-black">
         <div className="text-black">
-          <span className="text-black font-bold">Categoria: </span>
-          {object.category.name}{' '}
-        </div>
-
-        <div className="text-black">
-          <span className="font-bold text-black">Subcategoria: </span>
-          {object.subcategory.name}
+          <span className="text-black font-bold">Coleção: </span>
+          {object.collection.name}
         </div>
 
         <div className="text-black">

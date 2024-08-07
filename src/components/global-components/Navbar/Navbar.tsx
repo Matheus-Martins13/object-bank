@@ -10,8 +10,7 @@ export const Navbar = () => {
   const unig = true;
 
   const managementDropdown = [
-    { name: 'Cadastrar categoria', link: '/category/register' },
-    { name: 'Cadastrar subcategoria', link: '/subcategory/register' },
+    { name: 'Cadastrar coleção', link: '/collection/register' },
     { name: 'Cadastrar objeto', link: '/object/register' },
     { name: 'Painel de gerenciamento', link: '/management' },
   ];
