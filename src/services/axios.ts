@@ -1,4 +1,5 @@
 import { CollectionDto } from '@/dtos/collection.dto';
+import { UserDto } from '@/dtos/user.dto';
 
 import Axios from 'axios';
 
@@ -34,6 +35,54 @@ export const registerUser = async (data: FormData) => {
       error: true,
       message: err.response.data.message[0],
     };
+  }
+};
+
+export const findAllUsers = async () => {
+  try {
+    const response = await api.get('/user/find-all-complete');
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
+export const removeUser = async (idUser: string) => {
+  try {
+    const response = await api.delete(`user/${idUser}`);
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
+export const updateUser = async (idUser: string, updateUser: UserDto) => {
+  try {
+    const response = await api.patch(`user/${idUser}`, updateUser);
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
   }
 };
 

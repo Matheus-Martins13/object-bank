@@ -1,3 +1,6 @@
+'use client';
+
+import { useAuthContext } from '@/context/authContext';
 import { Dropdown, DrawerComponent } from './components';
 
 import Link from 'next/link';
@@ -7,6 +10,8 @@ import Image from 'next/image';
 import './style.css';
 
 export const Navbar = () => {
+  const { logged, payload } = useAuthContext();
+
   const unig = true;
 
   const managementDropdown = [
@@ -20,19 +25,55 @@ export const Navbar = () => {
     { name: 'Gerenciar usuários', link: '/user/management' },
   ];
 
-  return (
-    <nav
-      className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
-        unig ? 'bg-secondary' : ''
-      }`}
-    >
-      <DrawerComponent />
-      <div className="hidden md:flex items-center">
-        <Link href="/">Início</Link>
-        <Dropdown name="Gerenciar" links={managementDropdown} />
-        <Dropdown name="Usuários" links={userDropdown} />
-      </div>
-      {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
-    </nav>
-  );
+  if (logged) {
+    if (payload.type === 'ADMINISTRADOR') {
+      return (
+        <nav
+          className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
+            unig ? 'bg-secondary' : ''
+          }`}
+        >
+          <DrawerComponent />
+          <div className="hidden md:flex items-center">
+            <Link href="/">Início</Link>
+            <Dropdown name="Gerenciar" links={managementDropdown} />
+            <Dropdown name="Usuários" links={userDropdown} />
+          </div>
+          {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
+        </nav>
+      );
+    } else {
+      return (
+        <nav
+          className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
+            unig ? 'bg-secondary' : ''
+          }`}
+        >
+          <DrawerComponent />
+          <div className="hidden md:flex items-center">
+            <Link href="/">Início</Link>
+            <Dropdown name="Gerenciar" links={managementDropdown} />
+            <Dropdown name="Usuários" links={userDropdown} />
+          </div>
+          {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
+        </nav>
+      );
+    }
+  } else {
+    return (
+      <nav
+        className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
+          unig ? 'bg-secondary' : ''
+        }`}
+      >
+        <DrawerComponent />
+        <div className="hidden md:flex items-center">
+          <Link href="/">Início</Link>
+          <Dropdown name="Gerenciar" links={managementDropdown} />
+          <Dropdown name="Usuários" links={userDropdown} />
+        </div>
+        {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
+      </nav>
+    );
+  }
 };

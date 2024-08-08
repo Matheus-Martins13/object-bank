@@ -27,7 +27,11 @@ export const RegisterUser = () => {
 
   const handlePhone = (event: ChangeEvent<HTMLInputElement>) => {
     setPhone(
-      event.target.value.replace('(', '').replace(')', '').replace('-', ''),
+      event.target.value
+        .replace('(', '')
+        .replace(')', '')
+        .replace(' ', '')
+        .replace('-', ''),
     );
   };
 
@@ -78,8 +82,6 @@ export const RegisterUser = () => {
       formData.append('email', data.email);
       formData.append('password', data.password);
       formData.append('profileType', data.profileType);
-
-      // console.log(data);
 
       const response = await registerUser(formData);
 
