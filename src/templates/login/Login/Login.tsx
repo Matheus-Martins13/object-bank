@@ -1,16 +1,19 @@
 'use client';
 
-import { ChangeEvent, useState, useContext } from 'react';
-import { toast } from 'react-hot-toast';
-
-import './style.css';
-import { AuthContext } from '@/context/authContext';
+import { ChangeEvent, useState } from 'react';
+import { useAuthContext } from '@/context/authContext';
+import { Box, Modal } from '@mui/material';
+import toast from 'react-hot-toast';
 
 export const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn } = useAuthContext();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleMail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -50,47 +53,68 @@ export const Login = () => {
     return { success: 'Logado com sucesso' };
   }
 
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '60%',
+    bgcolor: 'background.paper',
+    border: '1px solid #000',
+    borderRadius: '25px',
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
-    <div
-      id="login"
-      className="bg-primary-1 min-h-screen flex flex-col items-center justify-center"
-    >
-      <div
-        id="login-container"
-        className="bg-white p-10 flex flex-col items-center justify-center"
+    <div>
+      <button onClick={handleOpen} className="text-white me-2">
+        Fazer login
+      </button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
-        <h1 className="font-bold text-xl text-black">Banco de Objetos</h1>
-        <label htmlFor="email" className="text-black block mt-4 self-start">
-          E-mail:
-        </label>
-        <input
-          id="email"
-          type="text"
-          className="bg-black block my-2 p-2"
-          placeholder="E-mail"
-          onChange={handleMail}
-          value={email}
-        />
-        <label htmlFor="password" className="text-black block mt-2 self-start">
-          Senha:
-        </label>
+        <Box sx={style}>
+          <div id="login-container" className="">
+            <h1 className="font-bold text-xl text-black">Banco de Objetos</h1>
+            <label htmlFor="email" className="text-black mt-4 block">
+              E-mail:
+            </label>
+            <input
+              id="email"
+              type="text"
+              style={{ backgroundColor: '#333' }}
+              className="w-full p-2 mt-2 text-white"
+              placeholder="E-mail"
+              onChange={handleMail}
+              value={email}
+            />
+            <label htmlFor="password" className="text-black mt-4 block">
+              Senha:
+            </label>
 
-        <input
-          id="password"
-          type="password"
-          className="bg-black block my-2 text-black p-2"
-          placeholder="Senha"
-          onChange={handlePassword}
-          value={password}
-        />
+            <input
+              id="password"
+              type="password"
+              style={{ backgroundColor: '#333' }}
+              className="w-full p-2 mt-2 text-white"
+              placeholder="Senha"
+              onChange={handlePassword}
+              value={password}
+            />
 
-        <button
-          className="bg-primary-1 rounded-md p-2 mt-8 self-end"
-          onClick={handleSend}
-        >
-          Enviar
-        </button>
-      </div>
+            <button
+              className="mt-12 p-2 text-white bg-blue-500"
+              onClick={handleSend}
+            >
+              Login
+            </button>
+          </div>
+        </Box>
+      </Modal>
     </div>
   );
 };

@@ -242,6 +242,22 @@ export const findObjectById = async (idObject: string) => {
   }
 };
 
+export const findObjectByType = async (type: string) => {
+  try {
+    const response = await api.get(`object/find-by-type/${type}`);
+    const responseData = await response.data;
+    responseData['error'] = false;
+    return responseData;
+  } catch (err: any) {
+    if (err.response['data']) {
+      return {
+        error: true,
+        message: err.response.data.message[0],
+      };
+    }
+  }
+};
+
 export const updateObject = async (
   idObject: string,
   data: {

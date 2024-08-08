@@ -1,12 +1,7 @@
 import { ObjectDto } from '@/dtos/object.dto';
+import { formatObjectType } from '@/utils/format-object-type';
 
-export const Metadata = ({
-  object,
-  objectType,
-}: {
-  object: ObjectDto;
-  objectType: string;
-}) => {
+export const Metadata = ({ object }: { object: ObjectDto }) => {
   return (
     <div className="mt-8">
       <div className="text-black">
@@ -26,7 +21,7 @@ export const Metadata = ({
 
         <div className="text-black">
           <span className="font-bold text-black">Tipo do arquivo: </span>
-          {objectType}
+          {formatObjectType(object.type as string)}
         </div>
 
         <div className="text-black">

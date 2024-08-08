@@ -1,6 +1,5 @@
 import { MyAccordion } from '@/components/global-components';
 import { ObjectDto } from '@/dtos/object.dto';
-import { formatTypes } from '@/utils/format-type';
 import { EditObjectModal } from './components';
 import { CollectionWithObjectsDto } from '@/dtos/collection.dto';
 import { Topic } from '@/components';
@@ -49,7 +48,7 @@ export const ObjectAccordion = ({
       <Topic textBold="Descrição: " textNormal={object.description} />
       <Topic
         textBold="Tipo de arquivo: "
-        textNormal={formatTypes(object.objectFile.mimetype)}
+        textNormal={object.type as string}
       />
 
       <Topic

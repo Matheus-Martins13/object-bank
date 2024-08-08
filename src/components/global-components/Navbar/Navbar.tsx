@@ -8,11 +8,21 @@ import Link from 'next/link';
 import logo from '@/assets/logo.png';
 import Image from 'next/image';
 import './style.css';
+import { Login } from '@/templates';
 
 export const Navbar = () => {
-  const { logged, payload } = useAuthContext();
+  const { logged, payload, signOut } = useAuthContext();
 
   const unig = true;
+
+  const types = [
+    { name: 'image', value: 'Imagens' },
+    { name: 'video', value: 'Vídeos' },
+    { name: 'illustrations', value: 'Ilustrações' },
+    { name: 'book', value: 'Livros' },
+    { name: 'presentation', value: 'Apresentações' },
+    { name: 'audio', value: 'Áudios' },
+  ];
 
   const managementDropdown = [
     { name: 'Cadastrar coleção', link: '/collection/register' },
@@ -36,9 +46,24 @@ export const Navbar = () => {
           <DrawerComponent />
           <div className="hidden md:flex items-center">
             <Link href="/">Início</Link>
+
+            {types.map((type: any) => {
+              return (
+                <Link
+                  href={{
+                    pathname: '/type',
+                    query: { type: type.name },
+                  }}
+                >
+                  {type.value}
+                </Link>
+              );
+            })}
+
             <Dropdown name="Gerenciar" links={managementDropdown} />
             <Dropdown name="Usuários" links={userDropdown} />
           </div>
+          <button onClick={signOut} className='text-white me-4'>Sair</button>
           {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
         </nav>
       );
@@ -52,9 +77,21 @@ export const Navbar = () => {
           <DrawerComponent />
           <div className="hidden md:flex items-center">
             <Link href="/">Início</Link>
-            <Dropdown name="Gerenciar" links={managementDropdown} />
-            <Dropdown name="Usuários" links={userDropdown} />
+
+            {types.map((type: any) => {
+              return (
+                <Link
+                  href={{
+                    pathname: '/type',
+                    query: { type: type.name },
+                  }}
+                >
+                  {type.value}
+                </Link>
+              );
+            })}
           </div>
+          <button onClick={signOut} className="text-white me-4">Sair</button>
           {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
         </nav>
       );
@@ -69,9 +106,21 @@ export const Navbar = () => {
         <DrawerComponent />
         <div className="hidden md:flex items-center">
           <Link href="/">Início</Link>
-          <Dropdown name="Gerenciar" links={managementDropdown} />
-          <Dropdown name="Usuários" links={userDropdown} />
+
+          {types.map((type: any) => {
+            return (
+              <Link
+                href={{
+                  pathname: '/type',
+                  query: { type: type.name },
+                }}
+              >
+                {type.value}
+              </Link>
+            );
+          })}
         </div>
+        <Login />
         {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
       </nav>
     );

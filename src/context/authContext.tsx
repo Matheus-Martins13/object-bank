@@ -63,7 +63,7 @@ export const AuthProvider = ({
     setPayload(undefined);
     await deleteCookie('payload');
     await deleteCookie('token');
-    router.push('/login');
+    router.push('/');
   };
 
   return (

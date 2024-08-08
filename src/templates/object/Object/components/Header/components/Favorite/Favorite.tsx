@@ -12,7 +12,7 @@ import {
 import toast from 'react-hot-toast';
 
 export const Favorite = ({ idObject }: { idObject: string }) => {
-  const idUser = 'ef949fdc-1e31-4727-ba63-1660896733dc';
+  const idUser = 'ef593e55-dcae-4991-9178-7757528d912e';
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [idFavorite, setIdFavorite] = useState<string>('');

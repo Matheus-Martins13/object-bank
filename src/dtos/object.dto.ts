@@ -10,6 +10,7 @@ export interface ObjectDto {
   objectPicture: ObjectPictureDto;
   objectFile: ObjectFileDto;
   collection: CollectionDto;
+  type?: string;
   user: {
     idUser: string;
     name: string;

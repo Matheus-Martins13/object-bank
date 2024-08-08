@@ -16,6 +16,7 @@ export const ManagementUser = () => {
       if (response['error']) return toast.error(response['message']);
 
       if (response) {
+        console.log(response);
         const usersFormatted = [];
         for (const user of response) {
           usersFormatted.push(formatUser(user));

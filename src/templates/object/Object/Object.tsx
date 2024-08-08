@@ -7,7 +7,6 @@ import { Loading } from '@/components/global-components';
 import { Comments, Header, Metadata, Picture } from './components';
 
 import { findObjectById } from '@/services/axios';
-import { formatTypes } from '@/utils/format-type';
 
 import './style.css';
 
@@ -33,10 +32,6 @@ export const Object = () => {
       return router.push('/');
     }
 
-    if (!response) return router.push('/');
-
-    const { mimetype } = response.objectFile;
-    setObjectType(formatTypes(mimetype));
     setObject(response);
   };
 
@@ -58,7 +53,7 @@ export const Object = () => {
               <p className="text-black">{object.description}</p>
             </div>
 
-            <Metadata object={object} objectType={objectType} />
+            <Metadata object={object} />
 
             <button className="text-black bg-slate-500 p-2 rounded-md my-4 mb-10">
               <a href={object.objectFile.path} target="_blank">

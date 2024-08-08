@@ -24,7 +24,7 @@ import {
 import toast from 'react-hot-toast';
 
 export const RegisterObject = () => {
-  const { user } = { user: { idUser: '3759f9c7-dd37-45f9-a0a8-d76844eed16f' } };
+  const { user } = { user: { idUser: 'ef593e55-dcae-4991-9178-7757528d912e' } };
   const [collections, setCollections] = useState<CollectionDto[]>([]);
 
   const [objectName, setObjectName] = useState<string>('');
