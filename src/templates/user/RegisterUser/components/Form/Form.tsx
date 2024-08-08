@@ -4,14 +4,6 @@ import { Input } from './components/Input';
 export const Form = ({
   handleName,
   handleCpf,
-  handleBirthday,
-  handleCep,
-  handleEstado,
-  handleCidade,
-  handleBairro,
-  handleLogradouro,
-  handleNumero,
-  handleComplemento,
   handlePhone,
   handleProfileType,
   handleProfilePicture,
@@ -20,28 +12,12 @@ export const Form = ({
   handleSend,
   name,
   cpf,
-  birthday,
-  cep,
-  estado,
-  cidade,
-  bairro,
-  logradouro,
-  numero,
-  complemento,
   phone,
   email,
   password,
 }: {
   handleName: (event: ChangeEvent<HTMLInputElement>) => void;
   handleCpf: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleBirthday: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleCep: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleEstado: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleCidade: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleBairro: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleLogradouro: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleNumero: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleComplemento: (event: ChangeEvent<HTMLInputElement>) => void;
   handlePhone: (event: ChangeEvent<HTMLInputElement>) => void;
   handleProfileType: (event: any) => void;
   handleProfilePicture: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -50,14 +26,6 @@ export const Form = ({
   handleSend: (event: any) => Promise<string | undefined>;
   name: string;
   cpf: string;
-  birthday: string;
-  cep: string;
-  estado: string;
-  cidade: string;
-  bairro: string;
-  logradouro: string;
-  numero: string;
-  complemento: string;
   phone: string;
   profilePicture: FileList | null;
   email: string;
@@ -93,86 +61,6 @@ export const Form = ({
             placeholder="CPF"
             onChange={handleCpf}
             mask="999.999.999-99"
-          />
-
-          <Input
-            id="birthday"
-            label="Data de Nascimento"
-            type="date"
-            value={birthday}
-            placeholder="Sua senha"
-            onChange={handleBirthday}
-            mask=""
-          />
-
-          <Input
-            id="cep"
-            label="CEP (somente números)"
-            type="text"
-            value={cep}
-            placeholder="CEP"
-            onChange={handleCep}
-            mask="99999-999"
-          />
-
-          <Input
-            id="estado"
-            label="Estado"
-            type="text"
-            value={estado}
-            placeholder="Estado"
-            onChange={handleEstado}
-            mask=""
-          />
-
-          <Input
-            id="cidade"
-            label="Cidade"
-            type="text"
-            value={cidade}
-            placeholder="Cidade"
-            onChange={handleCidade}
-            mask=""
-          />
-
-          <Input
-            id="bairro"
-            label="Bairro"
-            type="text"
-            value={bairro}
-            placeholder="Bairro"
-            onChange={handleBairro}
-            mask=""
-          />
-
-          <Input
-            id="logradouro"
-            label="Logradouro"
-            type="text"
-            value={logradouro}
-            placeholder="Logradouro"
-            onChange={handleLogradouro}
-            mask=""
-          />
-
-          <Input
-            id="numero"
-            label="Número"
-            type="text"
-            value={numero}
-            placeholder="Sua senha"
-            onChange={handleNumero}
-            mask=""
-          />
-
-          <Input
-            id="complemento"
-            label="Complemento"
-            type="text"
-            value={complemento}
-            placeholder="Complemento"
-            onChange={handleComplemento}
-            mask=""
           />
 
           <Input
@@ -227,7 +115,7 @@ export const Form = ({
             type="file"
             onChange={handleProfilePicture}
             mask=""
-            accept='image/png, image/jpg'
+            accept="image/png, image/jpg"
           />
 
           <button

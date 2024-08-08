@@ -10,24 +10,6 @@ export function validate(data: any) {
   if (!data.cpf) {
     return { error: "O campo 'CPF' é obrigatório" };
   }
-  if (!data.birthday) {
-    return { error: "O campo 'data de nascimento' é obrigatório" };
-  }
-  if (!data.cep) {
-    return { error: "O campo 'CEP' é obrigatório" };
-  }
-  if (!data.estado) {
-    return { error: "O campo 'estado' é obrigatório" };
-  }
-  if (!data.cidade) {
-    return { error: "O campo 'cidade' é obrigatório" };
-  }
-  if (!data.bairro) {
-    return { error: "O campo 'bairro' é obrigatório" };
-  }
-  if (!data.logradouro) {
-    return { error: "O campo 'logradouro' é obrigatório" };
-  }
   if (!data.phone) {
     return { error: "O campo 'telefone' é obrigatório" };
   }
