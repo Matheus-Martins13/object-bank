@@ -6,3 +6,7 @@
   padding: 0;
   margin: 0;
 }
+
+input, select, button {
+  border-radius: 10px;
+}

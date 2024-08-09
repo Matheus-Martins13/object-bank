@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export const Dropdown = ({
   name,
@@ -10,7 +11,7 @@ export const Dropdown = ({
   return (
     <div className="dropdown" id="dropdown">
       <button className="dropbtn">
-        {name}
+        {name} <KeyboardArrowDownIcon />
         <i className="fa fa-caret-down"></i>
       </button>
       <div className="dropdown-content">

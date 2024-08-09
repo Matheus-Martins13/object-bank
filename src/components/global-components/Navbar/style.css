@@ -1,6 +1,4 @@
-#navigation-md {
-  color: red;
-}
+
 /* Navbar container */
 .navbar {
   overflow: hidden;
@@ -38,7 +36,8 @@
 
 /* Add a red background color to navbar links on hover */
 .navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
+  color: rgb(143, 137, 137);
+  transition: 300ms;
 }
 
 /* Dropdown content (hidden by default) */
@@ -63,7 +62,9 @@
 
 /* Add a grey background color to dropdown links on hover */
 .dropdown-content a:hover {
+  color: rgb(51, 50, 50);
   background-color: #ddd;
+  transition: 400ms;
 }
 
 /* Show the dropdown menu on hover */

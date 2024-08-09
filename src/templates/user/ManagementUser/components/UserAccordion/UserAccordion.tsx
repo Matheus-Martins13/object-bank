@@ -1,10 +1,10 @@
 import { MyAccordion, Topic } from '@/components';
 import { UserDto } from '@/dtos/user.dto';
 import { EditUserModal } from './components';
-import DeleteIcon from '@mui/icons-material/Delete';
-import toast from 'react-hot-toast';
 import { removeUser } from '@/services/axios';
 import { capitalize } from './components/EditUserModal/utils/capitalize';
+import DeleteIcon from '@mui/icons-material/Delete';
+import toast from 'react-hot-toast';
 
 export const UserAccordion = ({
   user,
@@ -31,6 +31,7 @@ export const UserAccordion = ({
       console.log('ERR: ' + err);
     }
   };
+  console.log(user);
 
   return (
     <MyAccordion

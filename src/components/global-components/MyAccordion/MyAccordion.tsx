@@ -22,6 +22,7 @@ export const MyAccordion = ({
   return (
     <Accordion className="w-full">
       <AccordionSummary
+        sx={{ borderRadius: '5px'}}
         expandIcon={
           <ExpandMoreIcon color="inherit" style={expandedIconStyle} />
         }

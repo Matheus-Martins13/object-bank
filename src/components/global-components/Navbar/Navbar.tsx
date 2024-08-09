@@ -7,8 +7,10 @@ import Link from 'next/link';
 
 import logo from '@/assets/logo.png';
 import Image from 'next/image';
-import './style.css';
+
 import { Login } from '@/templates';
+
+import './style.css';
 
 export const Navbar = () => {
   const { logged, payload, signOut } = useAuthContext();
@@ -35,94 +37,129 @@ export const Navbar = () => {
     { name: 'Gerenciar usuários', link: '/user/management' },
   ];
 
-  if (logged) {
-    if (payload.type === 'ADMINISTRADOR') {
-      return (
-        <nav
-          className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
-            unig ? 'bg-secondary' : ''
-          }`}
-        >
-          <DrawerComponent />
-          <div className="hidden md:flex items-center">
-            <Link href="/">Início</Link>
+  return (
+    <nav
+      className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
+        unig ? 'bg-secondary' : ''
+      }`}
+    >
+      <DrawerComponent />
+      <div className="hidden md:flex items-center">
+        <Link href="/">Início</Link>
 
-            {types.map((type: any) => {
-              return (
-                <Link
-                  href={{
-                    pathname: '/type',
-                    query: { type: type.name },
-                  }}
-                >
-                  {type.value}
-                </Link>
-              );
-            })}
+        {types.map((type: any) => {
+          return (
+            <Link
+              href={{
+                pathname: '/type',
+                query: { type: type.name },
+              }}
+            >
+              {type.value}
+            </Link>
+          );
+        })}
 
-            <Dropdown name="Gerenciar" links={managementDropdown} />
-            <Dropdown name="Usuários" links={userDropdown} />
-          </div>
-          <button onClick={signOut} className='text-white me-4'>Sair</button>
-          {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
-        </nav>
-      );
-    } else {
-      return (
-        <nav
-          className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
-            unig ? 'bg-secondary' : ''
-          }`}
-        >
-          <DrawerComponent />
-          <div className="hidden md:flex items-center">
-            <Link href="/">Início</Link>
-
-            {types.map((type: any) => {
-              return (
-                <Link
-                  href={{
-                    pathname: '/type',
-                    query: { type: type.name },
-                  }}
-                >
-                  {type.value}
-                </Link>
-              );
-            })}
-          </div>
-          <button onClick={signOut} className="text-white me-4">Sair</button>
-          {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
-        </nav>
-      );
-    }
-  } else {
-    return (
-      <nav
-        className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
-          unig ? 'bg-secondary' : ''
-        }`}
-      >
-        <DrawerComponent />
-        <div className="hidden md:flex items-center">
-          <Link href="/">Início</Link>
-
-          {types.map((type: any) => {
-            return (
-              <Link
-                href={{
-                  pathname: '/type',
-                  query: { type: type.name },
-                }}
-              >
-                {type.value}
-              </Link>
-            );
-          })}
+        <div className="flex self-end">
+          <Dropdown name="Gerenciar" links={managementDropdown} />
+          <Dropdown name="Usuários" links={userDropdown} />
         </div>
-        <Login />
-        {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
-      </nav>
-    );
-  }
+      </div>
+      <button onClick={signOut} className="text-white me-4">
+        Sair
+      </button>
+      {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
+    </nav>
+  );
 };
+//   if (logged) {
+//     if (payload.type === 'ADMINISTRADOR') {
+//       return (
+//         <nav
+//           className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
+//             unig ? 'bg-secondary' : ''
+//           }`}
+//         >
+//           <DrawerComponent />
+//           <div className="hidden md:flex items-center">
+//             <Link href="/">Início</Link>
+
+//             {types.map((type: any) => {
+//               return (
+//                 <Link
+//                   href={{
+//                     pathname: '/type',
+//                     query: { type: type.name },
+//                   }}
+//                 >
+//                   {type.value}
+//                 </Link>
+//               );
+//             })}
+
+//             <Dropdown name="Gerenciar" links={managementDropdown} />
+//             <Dropdown name="Usuários" links={userDropdown} />
+//           </div>
+//           <button onClick={signOut} className='text-white me-4'>Sair</button>
+//           {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
+//         </nav>
+//       );
+//     } else {
+//       return (
+//         <nav
+//           className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
+//             unig ? 'bg-secondary' : ''
+//           }`}
+//         >
+//           <DrawerComponent />
+//           <div className="hidden md:flex items-center">
+//             <Link href="/">Início</Link>
+
+//             {types.map((type: any) => {
+//               return (
+//                 <Link
+//                   href={{
+//                     pathname: '/type',
+//                     query: { type: type.name },
+//                   }}
+//                 >
+//                   {type.value}
+//                 </Link>
+//               );
+//             })}
+//           </div>
+//           <button onClick={signOut} className="text-white me-4">Sair</button>
+//           {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
+//         </nav>
+//       );
+//     }
+//   } else {
+//     return (
+//       <nav
+//         className={`navbar flex items-center justify-between w-full p-4 sm:p-0 ${
+//           unig ? 'bg-secondary' : ''
+//         }`}
+//       >
+//         <DrawerComponent />
+//         <div className="hidden md:flex items-center">
+//           <Link href="/">Início</Link>
+
+//           {types.map((type: any) => {
+//             return (
+//               <Link
+//                 href={{
+//                   pathname: '/type',
+//                   query: { type: type.name },
+//                 }}
+//               >
+//                 {type.value}
+//               </Link>
+//             );
+//           })}
+//         </div>
+//         <Login />
+//         {unig ?? <Image src={logo} alt="" width={130} className="p-2 me-4" />}
+//       </nav>
+//     );
+//   }
+// };

@@ -55,15 +55,15 @@ export const ManagementUser = () => {
   if (users) {
     return (
       <div className="flex flex-col justify-center items-center my-4 w-full">
-        <h1 className="text-black font-bold text-xl mb-6">
+        <h1 className="text-black font-bold text-3xl text-center mt-6 mb-6">
           Gerenciamento de Usuários
         </h1>
 
         <div className="w-2/4">
           <input
             type="text"
-            className="p-2 border-2 border-gray-800 w-full"
-            placeholder="Buscar"
+            className="p-2 border-2 border-gray-800 w-full mb-10 mt-5"
+            placeholder="Buscar..."
             onChange={handleFilter}
           />
         </div>
